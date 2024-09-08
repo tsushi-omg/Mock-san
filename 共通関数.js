@@ -1251,6 +1251,7 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 mouseDrag(textarea);
                 areaCheck(textarea);
                 openSetting1(textarea,"ラベル");
+                settingStyle(textarea,"ラベル");//スタイル設定画面
             }
             //テキストボックス複製
             if(element.name=="textbox"){
@@ -1280,6 +1281,7 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 mouseDrag(textarea);
                 areaCheck(textarea);
                 openSetting1(textarea,"テキストボックス");
+                settingStyle(textarea,"テキストボックス");//スタイル設定画面
             }
             //コマンドボタン複製
             if(element.name=="command"){
@@ -1309,6 +1311,7 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 mouseDrag(textarea);
                 areaCheck(textarea);
                 openSetting1(textarea,"コマンドボタン");
+                settingStyle(textarea,"コマンドボタン");//スタイル設定画面
             }
             //リンク複製
             if(element.name=="link"){
@@ -1338,6 +1341,7 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 mouseDrag(textarea);
                 areaCheck(textarea);
                 openSetting1(textarea,"リンク");
+                settingStyle(textarea,"リンク");//スタイル設定画面
             }
         };
     });
