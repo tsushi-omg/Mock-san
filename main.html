@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="共通関数.js"></script>
+    <link href="共通.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="disabled1">
+
+<label id="title" style="font-weight: bold; position:absolute; color: rgb(229, 229, 229); left:2%; top:5%; z-index: 2; cursor: pointer;" class="fs-4 " onclick="createHTML()">Mock - san</label>
+<div id="openExp">
+<label style="font-weight: bold; position:absolute; color: rgb(155, 155, 155); left:10%; top:5%;" class="fs-4">？</label>
+<label style=" position:absolute; color: rgb(155, 155, 155); left:9.76%; top:4.43%; font-size: 33px;" id="explainButton">〇</label>
+</div>
+<div class="frame mt-4">
+    <div id="editArea" style="height:870px; background-color:rgb(56, 56, 56); overflow: hidden;" readonly></div>
+    <div id="commandArea" style="height:870px; background-color:rgb(21, 21, 21);" readonly></div>
+</div>
+<script>
+// editAreaとcommandAreaの縦幅を固定
+setInterval(() => {
+    document.getElementById('editArea').style.height=870+"px";
+    document.getElementById('commandArea').style.height=870+"px";
+}, 100);
+</script>
+<style>
+    /* 罫線 */
+    #editTableGrid, #editTableGrid th, #editTableGrid td {
+        border: 1px solid rgb(213, 213, 213);
+        border-collapse: collapse;
+    }
+    #editTableGrid th, #editTableGrid td {
+        padding: 35px;
+    }
+
+    /* 下地 */
+    #editTable th, #editTable td {
+        padding: 35.5px;
+    }
+</style>
+<!-- 16*9 枠線-->
+<table id="editTableGrid" style="position:absolute; left:3.5%; top:10%; background-color: transparent; z-index: 3;" class="mt-4">
+    <thead>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>
+    </tbody>
+</table>
+<!-- 16*9　下地 -->
+<table id="editTable" style="position:absolute; left:3.5%; top:10%; background-color: aliceblue; z-index: 1;" class="mt-4">
+    <thead>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    </tr>
+    </tbody>
+</table>
+
+
+
+
+<!-- 編集エリア間にdivを挿入   ok!-->
+<div id="customBGArea" style="position:absolute; left:3.5%; top:10%; background-color: transparent; z-index: 2; width: 1136px; height: 639px" class="mt-4"></div>
+
+
+
+<!-- セレクトワンメニュー -->
+<div id="selectMenuObj" style="display: grid; grid-template-rows: auto auto auto; position: absolute; background-color: rgb(228, 228, 228); z-index: 10; cursor: pointer;" hidden>
+<button id="manuLabel" onclick="createElementLabel()">ラベル</button>
+<button id="manuTextbox" onclick="createElementTextbox()">テキストボックス</button>
+<button id="manuCommand" onclick="createElementCommand()">コマンドボタン</button>
+<button id="manuLink" onclick="createElementLink()">リンク</button>
+<button id="manuRadio" onclick="createElementRadio()" disabled>ラジオボタン</button>
+<button id="manuSelectone" onclick="createElementSelectone()" disabled>セレクトワンメニュー</button>
+<!-- <button id="manuTable">テーブル</button> -->
+<button id="manuBG" onclick="createElementBG()">背景要素</button>
+
+</div>
+
+<!-- 詳細設定エリア -->
+<div id="settingForm" style="position: absolute; top:10%; left: 70%; background-color: rgb(56, 56, 56); width:25%;" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >詳細設定</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">分類　：　</label><label id="bunruiLabel" style="color:rgb(229, 229, 229);"></label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">ＩＤ　：　</label><input type="text" id="idBox" placeholder="IDを設定" autocomplete="off"></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">横幅　：　</label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">縦幅　：　</label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">文字　：　</label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">傾き　：　</label><button id="degreeResetButton" onclick="degreeReset()" style="position:absolute; margin-left: 326px; background-color: transparent; color: rgb(229, 229, 229);">↻</button><p></div>
+            <div id="groupForm"><label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >グループ設定</label><p>
+                <div id="countGroupLabel"><label style="color:rgb(229, 229, 229); margin-left: 10px;">構成数　　　：　</label><input type="number" id="countRadioNumber" min="2" max="10" style="width:20%; " placeholder="*2-10" ></div>
+                <div id="nameGroupLabel"><label style="color:rgb(229, 229, 229); margin-left: 10px;">グループ名　：　</label><input type="text" id="groupNameBox" placeholder="*" readonly><p></div></div>
+                    <!-- リンク埋め込みエリア -->
+                    <div id="URLForm"hidden>
+                        <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >遷移先</label><p>
+                        <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">URL　：　</label><input type="text" id="URLBox" style="width:75%; color:blue; text-decoration: underline; " autocomplete="off"></div><p>
+                    </div>
+    <div><button id="copyButton" style="margin-left: 298px; background-color: rgb(40, 190, 125); color:rgb(229, 229, 229);">複製</button><button id="deleteButton" style="margin-left: 10px; background-color: rgb(190, 40, 40); color:rgb(229, 229, 229);" onclick="Delete()">削除</button><button id="submitButton" style="margin-left: 10px; background-color: rgb(40, 55, 190); color:rgb(229, 229, 229);" onclick="Submit()">保存</button><p></div>
+</div>
+<!-- <input type="range" id="widthRange"  min="0" max="1132" style="width:300px; "> -->
+<!-- <input type="range" id="heightRange" min="1" max="638" style="width:300px; "> -->
+
+<!-- スタイル設定エリア -->
+<div id="sampleForm" style="position: absolute; top:60%; left: 70%; background-color: rgb(56, 56, 56); width:25%; height:30%" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >スタイル設定</label><p>
+    <!-- <div><textarea style="resize: both; color: rgb(154, 154, 154); margin-left: 10px; resize: none;" id="sampleTextarea" readonly>プレビュー</textarea></div><p> -->
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">文字色　：　</label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">背景色　：　</label><label style="color: rgb(229, 229, 229); margin-left: 130px; font-size: 15px;">〔</label><label style="color: rgb(229, 229, 229); margin-left: 10px; font-size: 15px;">　　透明　〕</label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">枠線　　：　</label>
+        <!-- 枠線　属性 -->
+        <label style="color: rgb(229, 229, 229); margin-left: 126px; font-size: 15px;">〔</label><label style="color: rgb(229, 229, 229); margin-left: 10px; font-size: 15px;">　　無し　〕</label></div>
+    <!-- <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">フォント：　</label> -->
+        <!-- フォント　属性 -->
+        <!-- <select style="margin-left: 60px; background-color: rgb(122, 122, 122); width : 76px; " type="checkbox" id="fontSelect"> -->
+        <!-- <option></option> -->
+        <!-- <option>MS明朝</option> -->
+    <!-- </select></div> -->
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">太字　　：　</label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">下線　　：　</label></div>
+
+</div>
+
+
+
+<!-- グリッド線設定
+<form style="position: absolute; top: 87%; left:3.5%; ">
+    <label style="color:rgb(229, 229, 229);">グリッド線　：　</label>
+    <input type="radio" value="1" name="grid" id="gridLarge" onclick="openLarge()">
+        <label style="color:rgb(229, 229, 229);">大　</label>
+    <input type="radio" value="2" name="grid" id="gridMedium" checked onclick="openMedium()">
+        <label style="color:rgb(229, 229, 229);">中　</label>
+    <input type="radio" value="3" name="grid" id="gridSmall" onclick="openSmall()">
+        <label style="color:rgb(229, 229, 229);">小　</label>
+</form> -->
+
+
+<div style="position: absolute; top: 87%; left:3.5%;">
+    <input type="checkbox" onclick="onOffGrid()"><label style="color:rgb(229, 229, 229);">　グリッド線を非表示</label>
+</div>
+
+
+
+<!-- ゴミ箱 -->
+<div id="gabage" style="position: absolute; top:87.5%; left: 95.5%; cursor: pointer;" onclick="openGabage()">
+    <!-- <label style="font-size: 45px;">🗑️</label> -->
+    <svg xmlns="http://www.w3.org/2000/svg" height="60px" viewBox="0 -960 960 960" width="60px" fill="rgb(229, 229, 229)"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+</div>
+<div style="position: absolute; top:85.15%; left: 97.17%;" ><label id="gabageRed" style="font-size: 40px; color: rgb(190, 40, 40); cursor: pointer;" onclick="openGabage()" hidden>●</label></div>
+<div style="position: absolute; top:86.95%; left: 97.78%;" ><label id="deleteKensuu"style="font-size: 20px; color: rgb(240, 240, 240); cursor: pointer;"  onclick="openGabage()" ></label></div>
+
+<!-- !-- ゴミ箱中身 -->
+<div id="gabageIn" style="position: absolute; top:26.5%; left: 40%; background-color: rgb(21, 21, 21); width:25%; z-index: 21; border: solid; border-color: gray;" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >ゴミ箱</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;" id="msgLabel"></label><p></div>
+    <div style="position: absolute; top:1%; left:93.5%; cursor: pointer;" id="closeGabageButton">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+    <p></div>
+    <div id="gabageData"></div>
+</div>
+
+
+<!-- 説明書 -->
+
+<div id="explainWindow" style="position: absolute; top:10%; left: 9.8%; background-color: rgb(56, 56, 56); width:30%; z-index: 21;" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >説明</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">　直感的に組み立てたレイアウトを基に，htmlコードを生成します。</label></div>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 40px; margin-left: 10px; font-weight: bold;" >使い方</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">　右クリックで構成要素を追加。</label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">　「Mock - san」をクリックでコード生成。</label></div>
+    <!-- <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">　テキストボックスへの入力値はプレースホルダーになります。</label></div> -->
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 40px; margin-left: 10px; font-weight: bold;" >使用例</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">　モック作成，パスワード管理表，リンク集　etc…</label></div>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 40px; margin-left: 10px; font-weight: bold;" >注意</label><p>
+        <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">　ブラウザの画面スクロールが発生しないサイズで使用してください。</label></div>
+</div>
+
+
+<!-- 背景設定エリア -->
+<div id="backgroundForm" style="position: absolute; top:46.75%; left: 70%; background-color: rgb(56, 56, 56); width:25%;" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >背景設定</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">背景色　：　</label><input type="color" id="BGColorSetter" style="height:20px; "></div>
+    <!-- <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">背景要素を追加　：　</label><input type="text" id="BGpartsText" maxlength="10" placeholder="例）🐬🫧"></div> -->
+    <!-- <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">背景の不透明度　：　</label><input type="range" id="BGtoumeiRange" min="0" max="100"><p></div> -->
+</div>
+
+<!-- 背景要素設定エリア -->
+<div id="BGelementForm" style="position: absolute; top:60%; left: 70%; background-color: rgb(56, 56, 56); width:25%;" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >詳細設定</label><p>
+    <!-- <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">背景要素を追加　：　</label><input type="text" id="BGpartsText" maxlength="10" placeholder="例）🐬🫧"></div> -->
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">背景の不透明度　：　</label><input type="range" id="BGtoumeiRange" min="0" max="100"><p></div>
+</div>
+
+
+
+
+
+<!-- セレクトワン詳細設定エリア -->
+<div id="selectSettingForm" style="position: absolute; top:10%; left: 70%; background-color: rgb(56, 56, 56); width:25%;" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >詳細設定</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">分類　：　</label><label id="bunruiLabelSelect" style="color:rgb(229, 229, 229);"></label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">ＩＤ　：　</label><input type="text" id="idBoxSelect" placeholder="IDを設定"></div>
+    <div><button id="deleteButtonSelect" style="margin-left: 355px; background-color: rgb(190, 40, 40); color:rgb(229, 229, 229);" onclick="Delete()">削除</button><button id="submitButtonSelect" style="margin-left: 10px; background-color: rgb(40, 55, 190); color:rgb(229, 229, 229);" onclick="Submit()">保存</button><p></div>
+</div>
+
+
+
+<!-- セレクトワン用スタイル設定エリア -->
+<div id="sampleFormSelect" style="position: absolute; top:60%; left: 70%; background-color: rgb(56, 56, 56); width:25%; height:23%" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >スタイル設定</label><p>
+    <!-- <div><textarea style="resize: both; color: rgb(154, 154, 154); margin-left: 10px; resize: none;" id="sampleTextarea" readonly>プレビュー</textarea></div><p> -->
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">文字色　：　</label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">背景色　：　</label><label style="color: rgb(229, 229, 229); margin-left: 130px; font-size: 15px;">〔</label><label style="color: rgb(229, 229, 229); margin-left: 10px; font-size: 15px;">　　透明　〕</label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">枠線　　：　</label>
+        <!-- 枠線　属性 -->
+        <label style="color: rgb(229, 229, 229); margin-left: 126px; font-size: 15px;">〔</label><label style="color: rgb(229, 229, 229); margin-left: 10px; font-size: 15px;">　　無し　〕</label></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">太字　　：　</label></div>
+</div>
+
+
+
+<!-- セレクトワン　オプション設定エリア -->
+<div id="optionForm" style="position: absolute; top:30%; left: 70%; background-color: rgb(56, 56, 56); width:25%; height:29%" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >オプション設定</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">文字色　：　</label></div>
+</div>
+
+
+
+<!-- 機能設定エリア -->
+<div id="functionForm" style="position: absolute; top:46.5%; left: 70%; background-color: rgb(56, 56, 56); width:25%; height:12%" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >機能設定</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">機能　：　</label></div>
+    <!-- <div id="settingIcon" style="position: absolute; left:80%; top:50%; " hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="rgb(229, 229, 229)"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/></svg>
+    </div> -->
+</div>
+
+
+
+
+<!-- 目安線 -->
+<div>
+<div style="position: absolute; font-size: 7px; color: white; left: 350.7px; top: 107px; z-index: 20;"><label>|</label></div>
+<div style="position: absolute; font-size: 7px; color: white; left: 634.7px; top: 107px; z-index: 20;"><label>|</label></div>
+<div style="position: absolute; font-size: 7px; color: white; left: 918.7px; top: 107px; z-index: 20;"><label>|</label></div>
+</div>
+<div>
+    <div style="position: absolute; font-size: 7px; color: white; left: 350.7px; top: 751px; z-index: 20;"><label>|</label></div>
+    <div style="position: absolute; font-size: 7px; color: white; left: 634.7px; top: 751px; z-index: 20;"><label>|</label></div>
+    <div style="position: absolute; font-size: 7px; color: white; left: 918.7px; top: 751px; z-index: 20;"><label>|</label></div>
+</div>
+<div>
+    <div style="position: absolute; font-size: 15px; color: white; left: 62px; top: 422px; z-index: 20;"><label>-</label></div>
+    <div style="position: absolute; font-size: 15px; color: white; left: 1203px; top: 422px; z-index: 20;"><label>-</label></div>
+</div>
+
+<!-- <button style="position:absolute; top:90%; left:57%; background-color: transparent; color:rgb(194, 194, 194); border:none; font-size: 35px;" onclick="createHTML()">📝</button> -->
+
+<!-- タイトル絵文字 -->
+<div style="position:absolute; top:4.5%; left:1.1%; cursor: pointer;" onclick="createHTML()">
+    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill=" rgb(235, 144, 144)" zindex="5"><path d="M481-781q106 0 200 45.5T838-604q7 9 4.5 16t-8.5 12q-6 5-14 4.5t-14-8.5q-55-78-141.5-119.5T481-741q-97 0-182 41.5T158-580q-6 9-14 10t-14-4q-7-5-8.5-12.5T126-602q62-85 155.5-132T481-781Zm0 94q135 0 232 90t97 223q0 50-35.5 83.5T688-257q-51 0-87.5-33.5T564-374q0-33-24.5-55.5T481-452q-34 0-58.5 22.5T398-374q0 97 57.5 162T604-121q9 3 12 10t1 15q-2 7-8 12t-15 3q-104-26-170-103.5T358-374q0-50 36-84t87-34q51 0 87 34t36 84q0 33 25 55.5t59 22.5q34 0 58-22.5t24-55.5q0-116-85-195t-203-79q-118 0-203 79t-85 194q0 24 4.5 60t21.5 84q3 9-.5 16T208-205q-8 3-15.5-.5T182-217q-15-39-21.5-77.5T154-374q0-133 96.5-223T481-687Zm0-192q64 0 125 15.5T724-819q9 5 10.5 12t-1.5 14q-3 7-10 11t-17-1q-53-27-109.5-41.5T481-839q-58 0-114 13.5T260-783q-8 5-16 2.5T232-791q-4-8-2-14.5t10-11.5q56-30 117-46t124-16Zm0 289q93 0 160 62.5T708-374q0 9-5.5 14.5T688-354q-8 0-14-5.5t-6-14.5q0-75-55.5-125.5T481-550q-76 0-130.5 50.5T296-374q0 81 28 137.5T406-123q6 6 6 14t-6 14q-6 6-14 6t-14-6q-59-62-90.5-126.5T256-374q0-91 66-153.5T481-590Zm-1 196q9 0 14.5 6t5.5 14q0 75 54 123t126 48q6 0 17-1t23-3q9-2 15.5 2.5T744-191q2 8-3 14t-13 8q-18 5-31.5 5.5t-16.5.5q-89 0-154.5-60T460-374q0-8 5.5-14t14.5-6Z"/></svg>
+</div>
+
+<!-- <div style="position:absolute; top:3%; left:1%; font-size: 50px;" onclick="createHTML()">Code Generater</div> -->
+
+
+
+<!-- 機能設定　クリップボードへコピー -->
+<div id="clipBordForm" style="position: absolute; top:26.5%; left: 40%; background-color: rgb(21, 21, 21); width:25%; height:20%; z-index: 21; border: solid; border-color: gray;" hidden>
+    <label class="" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >【機能詳細】クリップボードへコピー</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">コピー内容　：　</label><input type="text" id="clipCopyBox" style="width:60%" placeholder="入力" autocomplete="off"><p></div>
+    <div style="position: absolute; top:1%; left:93.5%; cursor: pointer;" id="closeClipButton">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+    <p></div>
+    <div><button id="clipSubmitButton" style="margin-left: 409px; margin-top:20px; background-color: rgb(40, 55, 190); color:rgb(229, 229, 229);">保存</button><p></div>
+</div>
+
+<!-- 機能設定　リンクを埋め込んで遷移 -->
+<div id="linkFuncForm" style="position: absolute; top:26.5%; left: 40%; background-color: rgb(21, 21, 21); width:25%; height:20%; z-index: 21; border: solid; border-color: gray;" hidden>
+    <label class="" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >【機能詳細】リンクを埋め込んで遷移</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">遷移先　：　</label><input class="" type="text" id="linkFuncBox" style="width:60%; color: blue;" placeholder="URLを入力" autocomplete="off"><p></div>
+    <div style="position: absolute; top:1%; left:93.5%; cursor: pointer;" id="closeLinkFuncButton" >
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+    <p></div>
+    <div><button id="linkFuncSubmitButton" style="margin-left: 409px; margin-top:20px; background-color: rgb(40, 55, 190); color:rgb(229, 229, 229);">保存</button><p></div>
+</div>
+
+<!-- disabled1　終わり -->
+</div>
+
+<!-- ｈｔｍｌ生成画面 -->
+<div id="resultForm" style="position: absolute; top:9%; left: 22%; background-color: rgb(21, 21, 21); width:60%; height:80%; z-index: 50; border: solid; border-color: gray;" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >生成結果</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;" id="msgLabel"></label><p></div>
+    <div style="position: absolute; top:1%; left:97.5%; cursor: pointer;" id="closeResultButton">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+    </div>
+    <div style="position: absolute; top:95%; left:94.5%; cursor: pointer;" id="copyResultButton">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
+    </div>
+    <div style="position: absolute; top:95%; left:91%; cursor: pointer;" id="previewResultButton">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"/></svg>
+    </div>
+    <div style="position: absolute; top:95%; left:97.5%; cursor: pointer;" id="downloadResultButton">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>
+    </div>
+    <textarea id="resultArea" style="position: absolute; top:9%; left: 5%; background-color: rgb(21, 21, 21); color:rgb(102, 220, 145); width:90%; height:80%; z-index: 50; border: none; resize: none; " readonly></textarea>
+    <div><label style="color:rgb(229, 229, 229); position: absolute; margin-left: 10px; top:95%; ">※一部機能はプレビューに反映されません。</label></div>
+</div>
+
+
+<!-- 名前を付けて保存 -->
+<div id="submitNameForm" style="position: absolute; top:26.5%; left: 40%; background-color: rgb(21, 21, 21); width:25%; height: 20%; z-index: 60; border: solid; border-color: gray;" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >html形式で保存</label><p>
+    <div><input type="text" id="submitNameBox" style="margin-left: 10px; " placeholder="ファイル名" autocomplete="off"><label style="color:rgb(229, 229, 229); margin-left: 10px;">.html</label></div>
+    <div style="position: absolute; top:1%; left:93.5%; cursor: pointer;" id="closeNamingButton">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+    <p></div>
+        <div><button id="downloadButton" style="margin-left: 347px; margin-top:40px; background-color: rgb(40, 148, 190); color:rgb(229, 229, 229);">ダウンロード</button><p></div>
+</div>
+
+
+
+<!-- Bootstrap JS (Popper.js も含む) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+

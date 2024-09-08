@@ -1,0 +1,54 @@
+html{
+    background-color: rgb(146, 146, 146);
+}
+
+/* #title{
+    text-shadow: 10px 3px 3px rgb(109, 109, 109);
+} */
+
+.container{
+    display: flex;
+}
+
+.frame{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.under{
+    text-decoration: underline;
+}
+
+.header_area{
+    width: 978px;/*16:9*/
+    height: 100px;
+    padding: 10px;
+    border:1px solid gray;
+    border-radius: 5px;
+    resize:none;
+    background-color: rgb(228, 216, 201);
+    margin-left: 10px;
+}
+
+.copyButtonHidden{
+    color: rgb(182, 188, 193);
+    background-color: rgb(83, 100, 95);
+}
+
+.emoji{
+    font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Android Emoji', sans-serif;
+}
+
+input, textarea, div {
+    font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+.label_area{
+    width: 298px;
+    height: 40px;
+    font-size: 22px;/*デフォルトサイズ*/
+}
+
+/* #openExp:hover label {
+    color: red; /* ホバー時にラベルの文字色を赤に変更 */
+/* } */ 
