@@ -1965,7 +1965,7 @@ function createElementRadio(){
     menu.hidden=true;
     menuOpen=false;
     //ラベル要素作成
-    if(countRadio<10){
+    if(countRadio<4){
         const editArea = document.getElementById("editArea");
         const textarea = document.createElement("input");
         textarea.type="text";
@@ -1982,7 +1982,7 @@ function createElementRadio(){
         textarea.style.backgroundColor="transparent";
         textarea.autocomplete="off";
         // mouseDrag(textarea.id);
-        if(countRadio==10){
+        if(countRadio==4){
             var manuRadio = document.getElementById('manuRadio');
             manuRadio.disabled=true;
         };
@@ -2164,17 +2164,957 @@ function createElementSelectone(){
 };
 
 
+//テンプレートを選択
+function createElementTemplate(){
+    //変数定義
+    var selectTemplateForm = document.getElementById('selectTemplateForm');//１フォーム
+    var checkTemplateForm = document.getElementById('checkTemplateForm');//２フォーム
+
+    var closeTemplateButton = document.getElementById('closeTemplateButton');//１close
+    var templateSelect = document.getElementById('templateSelect');//１select　submitTemplateButton
+    var submitTemplateButton = document.getElementById('submitTemplateButton');//１適用
+
+    var checkYesButton = document.getElementById('checkYesButton');//２　はい
+    var checkNoButton = document.getElementById('checkNoButton');//２　いいえ
+
+    //初期表示
+    selectTemplateForm.hidden=false;
+    document.getElementById('selectMenuObj').hidden=true;
+    templateSelect.value="";
+    //閉じるボタンクリック
+    closeTemplateButton.onclick=function(){
+        selectTemplateForm.hidden=true;
+    };
+    //適用ボタンクリック
+    submitTemplateButton.onclick=function(){
+        if(templateSelect.value==""){
+            alert("テンプレートを選択してください。");
+        }else{
+            selectTemplateForm.hidden=true;
+            checkTemplateForm.hidden=false;
+        };
+    };
+    //いいえボタンクリック
+    checkNoButton.onclick=function(){
+        checkTemplateForm.hidden=true;
+    };
+    //はいクリック
+    checkYesButton.onclick=function(){
+        checkTemplateForm.hidden=true;
+        deleteAll();
+        if(templateSelect.value=="リンク集"){
+            createTMPLink();
+        }else if(templateSelect.value=="パスワード管理表"){
+            createTMPPass();
+        }
+    };
+}
+
+
+//全要素削除
+function deleteAll(){
+    deleteLabel();
+    deleteTextbox();
+    deleteCommand();
+    deleteLink();
+    deleteRadio1();
+    deleteRadio2();
+    deleteRadio3();
+    deleteRadio4();
+    deleteSelect();
+    deleteBG();
+}
+
+//ラベル削除
+function deleteLabel(){
+    let array = document.getElementsByName('label');
+    for(var i = array.length - 1; i >= 0; i--){//後ろからループすることでインデックスのズレを回避
+        array[i].remove();
+    };
+};
+
+//テキストボックス削除
+function deleteTextbox(){
+    let array = document.getElementsByName('textbox');
+    for(var i = array.length - 1; i >= 0; i--){
+        array[i].remove();
+    };
+};
+
+//コマンド削除
+function deleteCommand(){
+    let array = document.getElementsByName('command');
+    for(var i = array.length - 1; i >= 0; i--){
+        array[i].remove();
+    };
+};
+
+//コマンド削除
+function deleteLink(){
+    let array = document.getElementsByName('link');
+    for(var i = array.length - 1; i >= 0; i--){
+        array[i].remove();
+    };
+};
+
+//ラジオ削除
+function deleteRadio1(){
+    let array = document.getElementsByName('radio1');
+    for(var i = array.length - 1; i >= 0; i--){
+        array[i].remove();
+    };
+};
+
+function deleteRadio2(){
+    let array = document.getElementsByName('radio2');
+    for(var i = array.length - 1; i >= 0; i--){
+        array[i].remove();
+    };
+};
+
+function deleteRadio3(){
+    let array = document.getElementsByName('radio3');
+    for(var i = array.length - 1; i >= 0; i--){
+        array[i].remove();
+    };
+};
+
+function deleteRadio4(){
+    let array = document.getElementsByName('radio4');
+    for(var i = array.length - 1; i >= 0; i--){
+        array[i].remove();
+    };
+};
+
+//セレクト削除
+function deleteSelect(){
+    let array = document.getElementsByName('select');
+    for(var i = array.length - 1; i >= 0; i--){
+        array[i].remove();
+    };
+};
+
+//背景削除
+function deleteBG(){
+    let array = document.getElementsByName('BG');
+    for(var i = array.length - 1; i >= 0; i--){
+        array[i].remove();
+    };
+};
 
 
 
 
 
+//パスワード管理表　テンプレ
+function createTMPPass(){
+    //作成場所
+    const area = document.getElementById("editArea");
+    //背景色
+    // document.getElementById('editTable').style.backgroundColor="red";
+    //生成
+    //
+    var element1 = document.createElement('input');
+    element1.type="text";
+    element1.name="label";
+    element1.style.position="absolute";
+    element1.style.backgroundColor="transparent";
+    element1.style.top="150px";
+    element1.style.left="90px";
+    element1.style.fontSize="30px";
+    element1.style.fontWeight="bold";
+    element1.style.zIndex=7;
+    element1.value="パスワード管理🔒";
+    area.appendChild(element1);
+    mouseDrag(element1);
+    areaCheck(element1);
+    openSetting1(element1,"ラベル");
+    settingStyle(element1,"ラベル");
+    //
+    var element2 = document.createElement('input');
+    element2.type="text";
+    element2.name="label";
+    element2.style.position="absolute";
+    element2.style.backgroundColor="transparent";
+    element2.style.top="160px";
+    element2.style.left="450px";
+    element2.style.width="37%";
+    element2.style.color="red";
+    element2.style.fontSize="20px";
+    element2.style.zIndex=7;
+    element2.value="※クリックして機能を追加してください。例，ボタンにパスワードを埋め込む";
+    area.appendChild(element2);
+    mouseDrag(element2);
+    areaCheck(element2);
+    openSetting1(element2,"ラベル");
+    settingStyle(element2,"ラベル");
+    //
+    var element3 = document.createElement('input');
+    element3.type="text";
+    element3.name="label";
+    element3.style.position="absolute";
+    element3.style.backgroundColor="transparent";
+    element3.style.top="250px";
+    element3.style.left="140px";
+    element3.style.fontSize="20px";
+    element3.style.zIndex=7;
+    element3.value="・NNNNNNNNNN";
+    area.appendChild(element3);
+    mouseDrag(element3);
+    areaCheck(element3);
+    openSetting1(element3,"ラベル");
+    settingStyle(element3,"ラベル");
+    //
+    var element4 = document.createElement('input');
+    element4.type="text";
+    element4.name="command";
+    element4.id="tmp1";
+    element4.style.position="absolute";
+    element4.style.backgroundColor="transparent";
+    element4.style.top="250px";
+    element4.style.left="450px";
+    element4.style.width="35px";
+    element4.style.fontSize="20px";
+    // element4.style.border="outset";
+    element4.style.zIndex=7;
+    element4.value="ID";
+    area.appendChild(element4);
+    mouseDrag(element4);
+    areaCheck(element4);
+    openSetting1(element4,"コマンドボタン");
+    settingStyle(element4,"コマンドボタン");
+    //
+    var element5 = document.createElement('input');
+    element5.type="text";
+    element5.name="command";
+    element5.id="tmp2";
+    element5.style.position="absolute";
+    element5.style.backgroundColor="transparent";
+    element5.style.top="250px";
+    element5.style.left="520px";
+    element5.style.width="55px";
+    element5.style.fontSize="20px";
+    // element5.style.border="outset";
+    element5.style.zIndex=7;
+    element5.value="PASS";
+    area.appendChild(element5);
+    mouseDrag(element5);
+    areaCheck(element5);
+    openSetting1(element5,"コマンドボタン");
+    settingStyle(element5,"コマンドボタン");
+    //
+    //
+    var element6 = document.createElement('input');
+    element6.type="text";
+    element6.name="label";
+    element6.style.position="absolute";
+    element6.style.backgroundColor="transparent";
+    element6.style.top="300px";
+    element6.style.left="140px";
+    element6.style.fontSize="20px";
+    element6.style.zIndex=7;
+    element6.value="・NNNNNNNNNN";
+    area.appendChild(element6);
+    mouseDrag(element6);
+    areaCheck(element6);
+    openSetting1(element6,"ラベル");
+    settingStyle(element6,"ラベル");
+    //
+    var element7 = document.createElement('input');
+    element7.type="text";
+    element7.name="command";
+    element7.id="tmp3";
+    element7.style.position="absolute";
+    element7.style.backgroundColor="transparent";
+    element7.style.top="300px";
+    element7.style.left="450px";
+    element7.style.width="35px";
+    element7.style.fontSize="20px";
+    // element7.style.border="outset";
+    element7.style.zIndex=7;
+    element7.value="ID";
+    area.appendChild(element7);
+    mouseDrag(element7);
+    areaCheck(element7);
+    openSetting1(element7,"コマンドボタン");
+    settingStyle(element7,"コマンドボタン");
+    //
+    var element8 = document.createElement('input');
+    element8.type="text";
+    element8.name="command";
+    element8.id="tmp4";
+    element8.style.position="absolute";
+    element8.style.backgroundColor="transparent";
+    element8.style.top="300px";
+    element8.style.left="520px";
+    element8.style.width="55px";
+    element8.style.fontSize="20px";
+    // element8.style.border="outset";
+    element8.style.zIndex=7;
+    element8.value="PASS";
+    area.appendChild(element8);
+    mouseDrag(element8);
+    areaCheck(element8);
+    openSetting1(element8,"コマンドボタン");
+    settingStyle(element8,"コマンドボタン");
+    //
+    //
+    //
+    var element9 = document.createElement('input');
+    element9.type="text";
+    element9.name="label";
+    element9.style.position="absolute";
+    element9.style.backgroundColor="transparent";
+    element9.style.top="350px";
+    element9.style.left="140px";
+    element9.style.fontSize="20px";
+    element9.style.zIndex=7;
+    element9.value="・NNNNNNNNNN";
+    area.appendChild(element9);
+    mouseDrag(element9);
+    areaCheck(element9);
+    openSetting1(element9,"ラベル");
+    settingStyle(element9,"ラベル");
+    //
+    var element10 = document.createElement('input');
+    element10.type="text";
+    element10.name="command";
+    element10.id="tmp5";
+    element10.style.position="absolute";
+    element10.style.backgroundColor="transparent";
+    element10.style.top="350px";
+    element10.style.left="450px";
+    element10.style.width="35px";
+    element10.style.fontSize="20px";
+    // element10.style.border="outset";
+    element10.style.zIndex=7;
+    element10.value="ID";
+    area.appendChild(element10);
+    mouseDrag(element10);
+    areaCheck(element10);
+    openSetting1(element10,"コマンドボタン");
+    settingStyle(element10,"コマンドボタン");
+    //
+    var element11 = document.createElement('input');
+    element11.type="text";
+    element11.name="command";
+    element11.id="tmp6";
+    element11.style.position="absolute";
+    element11.style.backgroundColor="transparent";
+    element11.style.top="350px";
+    element11.style.left="520px";
+    element11.style.width="55px";
+    element11.style.fontSize="20px";
+    // element11.style.border="outset";
+    element11.style.zIndex=7;
+    element11.value="PASS";
+    area.appendChild(element11);
+    mouseDrag(element11);
+    areaCheck(element11);
+    openSetting1(element11,"コマンドボタン");
+    settingStyle(element11,"コマンドボタン");
+    //
+    //
+    //
+    var element12 = document.createElement('input');
+    element12.type = "text";
+    element12.name = "label";
+    element12.style.position = "absolute";
+    element12.style.backgroundColor = "transparent";
+    element12.style.top = "400px";
+    element12.style.left = "140px";
+    element12.style.fontSize = "20px";
+    element12.style.zIndex = 7;
+    element12.value = "・NNNNNNNNNN";
+    area.appendChild(element12);
+    mouseDrag(element12);
+    areaCheck(element12);
+    openSetting1(element12, "ラベル");
+    settingStyle(element12, "ラベル");
+
+    var element13 = document.createElement('input');
+    element13.type = "text";
+    element13.name = "command";
+    element13.id = "tmp7";
+    element13.style.position = "absolute";
+    element13.style.backgroundColor = "transparent";
+    element13.style.top = "400px";
+    element13.style.left = "450px";
+    element13.style.width = "35px";
+    element13.style.fontSize = "20px";
+    element13.style.zIndex = 7;
+    element13.value = "ID";
+    area.appendChild(element13);
+    mouseDrag(element13);
+    areaCheck(element13);
+    openSetting1(element13, "コマンドボタン");
+    settingStyle(element13, "コマンドボタン");
+
+    var element14 = document.createElement('input');
+    element14.type = "text";
+    element14.name = "command";
+    element14.id = "tmp8";
+    element14.style.position = "absolute";
+    element14.style.backgroundColor = "transparent";
+    element14.style.top = "400px";
+    element14.style.left = "520px";
+    element14.style.width = "55px";
+    element14.style.fontSize = "20px";
+    element14.style.zIndex = 7;
+    element14.value = "PASS";
+    area.appendChild(element14);
+    mouseDrag(element14);
+    areaCheck(element14);
+    openSetting1(element14, "コマンドボタン");
+    settingStyle(element14, "コマンドボタン");
+
+    //
+    var element15 = document.createElement('input');
+    element15.type = "text";
+    element15.name = "label";
+    element15.style.position = "absolute";
+    element15.style.backgroundColor = "transparent";
+    element15.style.top = "450px";
+    element15.style.left = "140px";
+    element15.style.fontSize = "20px";
+    element15.style.zIndex = 7;
+    element15.value = "・NNNNNNNNNN";
+    area.appendChild(element15);
+    mouseDrag(element15);
+    areaCheck(element15);
+    openSetting1(element15, "ラベル");
+    settingStyle(element15, "ラベル");
+
+    var element16 = document.createElement('input');
+    element16.type = "text";
+    element16.name = "command";
+    element16.id = "tmp9";
+    element16.style.position = "absolute";
+    element16.style.backgroundColor = "transparent";
+    element16.style.top = "450px";
+    element16.style.left = "450px";
+    element16.style.width = "35px";
+    element16.style.fontSize = "20px";
+    element16.style.zIndex = 7;
+    element16.value = "ID";
+    area.appendChild(element16);
+    mouseDrag(element16);
+    areaCheck(element16);
+    openSetting1(element16, "コマンドボタン");
+    settingStyle(element16, "コマンドボタン");
+
+    var element17 = document.createElement('input');
+    element17.type = "text";
+    element17.name = "command";
+    element17.id = "tmp10";
+    element17.style.position = "absolute";
+    element17.style.backgroundColor = "transparent";
+    element17.style.top = "450px";
+    element17.style.left = "520px";
+    element17.style.width = "55px";
+    element17.style.fontSize = "20px";
+    element17.style.zIndex = 7;
+    element17.value = "PASS";
+    area.appendChild(element17);
+    mouseDrag(element17);
+    areaCheck(element17);
+    openSetting1(element17, "コマンドボタン");
+    settingStyle(element17, "コマンドボタン");
+
+    //
+    var element18 = document.createElement('input');
+    element18.type = "text";
+    element18.name = "label";
+    element18.style.position = "absolute";
+    element18.style.backgroundColor = "transparent";
+    element18.style.top = "500px";
+    element18.style.left = "140px";
+    element18.style.fontSize = "20px";
+    element18.style.zIndex = 7;
+    element18.value = "・NNNNNNNNNN";
+    area.appendChild(element18);
+    mouseDrag(element18);
+    areaCheck(element18);
+    openSetting1(element18, "ラベル");
+    settingStyle(element18, "ラベル");
+
+    var element19 = document.createElement('input');
+    element19.type = "text";
+    element19.name = "command";
+    element19.id = "tmp11";
+    element19.style.position = "absolute";
+    element19.style.backgroundColor = "transparent";
+    element19.style.top = "500px";
+    element19.style.left = "450px";
+    element19.style.width = "35px";
+    element19.style.fontSize = "20px";
+    element19.style.zIndex = 7;
+    element19.value = "ID";
+    area.appendChild(element19);
+    mouseDrag(element19);
+    areaCheck(element19);
+    openSetting1(element19, "コマンドボタン");
+    settingStyle(element19, "コマンドボタン");
+
+    var element20 = document.createElement('input');
+    element20.type = "text";
+    element20.name = "command";
+    element20.id = "tmp12";
+    element20.style.position = "absolute";
+    element20.style.backgroundColor = "transparent";
+    element20.style.top = "500px";
+    element20.style.left = "520px";
+    element20.style.width = "55px";
+    element20.style.fontSize = "20px";
+    element20.style.zIndex = 7;
+    element20.value = "PASS";
+    area.appendChild(element20);
+    mouseDrag(element20);
+    areaCheck(element20);
+    openSetting1(element20, "コマンドボタン");
+    settingStyle(element20, "コマンドボタン");
+
+    // element4 (ID)
+element4.style.border = "outset";
+element4.style.borderColor = "white";
+
+// element5 (PASS)
+element5.style.border = "outset";
+element5.style.borderColor = "white";
+
+// element7 (ID)
+element7.style.border = "outset";
+element7.style.borderColor = "white";
+
+// element8 (PASS)
+element8.style.border = "outset";
+element8.style.borderColor = "white";
+
+// element10 (ID)
+element10.style.border = "outset";
+element10.style.borderColor = "white";
+
+// element11 (PASS)
+element11.style.border = "outset";
+element11.style.borderColor = "white";
+
+// element13 (ID)
+element13.style.border = "outset";
+element13.style.borderColor = "white";
+
+// element14 (PASS)
+element14.style.border = "outset";
+element14.style.borderColor = "white";
+
+// element16 (ID)
+element16.style.border = "outset";
+element16.style.borderColor = "white";
+
+// element17 (PASS)
+element17.style.border = "outset";
+element17.style.borderColor = "white";
+
+// element19 (ID)
+element19.style.border = "outset";
+element19.style.borderColor = "white";
+
+// element20 (PASS)
+element20.style.border = "outset";
+element20.style.borderColor = "white";
+
+}
 
 
 
+//リンク集　テンプレ  +"2"
+function createTMPLink(){
+    //作成場所
+    const area = document.getElementById("editArea");
+    //生成
+    //
+    var element12 = document.createElement('input');
+    element12.type="text";
+    element12.name="label";
+    element12.style.position="absolute";
+    element12.style.backgroundColor="transparent";
+    element12.style.top="150px";
+    element12.style.left="90px";
+    element12.style.fontSize="30px";
+    element12.style.zIndex=7;
+    element12.value="リンク集📋";
+    area.appendChild(element12);
+    mouseDrag(element12);
+    areaCheck(element12);
+    openSetting1(element12,"ラベル");
+    settingStyle(element12,"ラベル");
+    //
+    var element22 = document.createElement('input');
+    element22.type="text";
+    element22.name="label";
+    element22.style.position="absolute";
+    element22.style.backgroundColor="transparent";
+    element22.style.top="160px";
+    element22.style.left="450px";
+    element22.style.width="30%";
+    element22.style.color="red";
+    element22.style.fontSize="20px";
+    element22.style.zIndex=7;
+    element22.value="※クリックしてURLを埋め込んでください";
+    area.appendChild(element22);
+    mouseDrag(element22);
+    areaCheck(element22);
+    openSetting1(element22,"ラベル");
+    settingStyle(element22,"ラベル");
+    //
+    var element32 = document.createElement('input');
+    element32.type="text";
+    element32.name="label";
+    element32.style.position="absolute";
+    element32.style.backgroundColor="transparent";
+    element32.style.top="250px";
+    element32.style.left="140px";
+    element32.style.fontSize="20px";
+    element32.style.zIndex=7;
+    element32.style.fontWeight="bold";
+    element32.value="分類１";
+    area.appendChild(element32);
+    mouseDrag(element32);
+    areaCheck(element32);
+    openSetting1(element32,"ラベル");
+    settingStyle(element32,"ラベル");
+    //
+    //
+    //
+    var element32 = document.createElement('input');
+    element32.type="text";
+    element32.name="label";
+    element32.style.position="absolute";
+    element32.style.backgroundColor="transparent";
+    element32.style.top="250px";
+    element32.style.left="500px";
+    element32.style.fontSize="20px";
+    element32.style.zIndex=7;
+    element32.style.fontWeight="bold";
+    element32.value="分類２";
+    area.appendChild(element32);
+    mouseDrag(element32);
+    areaCheck(element32);
+    openSetting1(element32,"ラベル");
+    settingStyle(element32,"ラベル");
+    //
+    var element52 = document.createElement('input');
+    element52.type="text";
+    element52.name="link";
+    element52.id="tmp12";
+    element52.style.position="absolute";
+    element52.style.backgroundColor="transparent";
+    element52.style.top="300px";
+    element52.style.left="140px";
+    element52.style.fontSize="20px";
+    element52.style.zIndex=7;
+    element52.style.color="blue";
+    element52.style.textDecoration="underline";
+    element52.value="NNNNNNNNNN";
+    area.appendChild(element52);
+    mouseDrag(element52);
+    areaCheck(element52);
+    openSetting1(element52,"リンク");
+    settingStyle(element52,"リンク");
+    //
+    //
+    var element62 = document.createElement('input');
+    element62.type="text";
+    element62.name="link";
+    element62.id="tmp22";
+    element62.style.position="absolute";
+    element62.style.backgroundColor="transparent";
+    element62.style.top="300px";
+    element62.style.left="500px";
+    element62.style.fontSize="20px";
+    element62.style.zIndex=7;
+    element62.style.color="blue";
+    element62.style.textDecoration="underline";
+    element62.value="NNNNNNNNNN";
+    area.appendChild(element62);
+    mouseDrag(element62);
+    areaCheck(element62);
+    openSetting1(element62,"リンク");
+    settingStyle(element62,"リンク");
+    //
+    //
+    //
+    var element72 = document.createElement('input');
+    element72.type="text";
+    element72.name="link";
+    element72.id="tmp32";
+    element72.style.position="absolute";
+    element72.style.backgroundColor="transparent";
+    element72.style.top="350px";
+    element72.style.left="140px";
+    element72.style.fontSize="20px";
+    element72.style.zIndex=7;
+    element72.style.color="blue";
+    element72.style.textDecoration="underline";
+    element72.value="NNNNNNNNNN";
+    area.appendChild(element72);
+    mouseDrag(element72);
+    areaCheck(element72);
+    openSetting1(element72,"リンク");
+    settingStyle(element72,"リンク");
+    //
+    var element82 = document.createElement('input');
+    element82.type="text";
+    element82.name="link";
+    element82.id="tmp42";
+    element82.style.position="absolute";
+    element82.style.backgroundColor="transparent";
+    element82.style.top="350px";
+    element82.style.left="500px";
+    element82.style.fontSize="20px";
+    element82.style.zIndex=7;
+    element82.style.color="blue";
+    element82.style.textDecoration="underline";
+    element82.value="NNNNNNNNNN";
+    area.appendChild(element82);
+    mouseDrag(element82);
+    areaCheck(element82);
+    openSetting1(element82,"リンク");
+    settingStyle(element82,"リンク");
+    //
+    // 追加列 1
+    var element92 = document.createElement('input');
+    element92.type = "text";
+    element92.name = "link";
+    element92.id = "tmp52";
+    element92.style.position = "absolute";
+    element92.style.backgroundColor = "transparent";
+    element92.style.top = "400px";
+    element92.style.left = "140px";
+    element92.style.fontSize = "20px";
+    element92.style.zIndex = 7;
+    element92.style.color = "blue";
+    element92.style.textDecoration = "underline";
+    element92.value = "NNNNNNNNNN";
+    area.appendChild(element92);
+    mouseDrag(element92);
+    areaCheck(element92);
+    openSetting1(element92, "リンク");
+    settingStyle(element92, "リンク");
 
+    var element102 = document.createElement('input');
+    element102.type = "text";
+    element102.name = "link";
+    element102.id = "tmp62";
+    element102.style.position = "absolute";
+    element102.style.backgroundColor = "transparent";
+    element102.style.top = "400px";
+    element102.style.left = "500px";
+    element102.style.fontSize = "20px";
+    element102.style.zIndex = 7;
+    element102.style.color = "blue";
+    element102.style.textDecoration = "underline";
+    element102.value = "NNNNNNNNNN";
+    area.appendChild(element102);
+    mouseDrag(element102);
+    areaCheck(element102);
+    openSetting1(element102, "リンク");
+    settingStyle(element102, "リンク");
 
+    // 追加列 2
+    var element112 = document.createElement('input');
+    element112.type = "text";
+    element112.name = "link";
+    element112.id = "tmp72";
+    element112.style.position = "absolute";
+    element112.style.backgroundColor = "transparent";
+    element112.style.top = "450px";
+    element112.style.left = "140px";
+    element112.style.fontSize = "20px";
+    element112.style.zIndex = 7;
+    element112.style.color = "blue";
+    element112.style.textDecoration = "underline";
+    element112.value = "NNNNNNNNNN";
+    area.appendChild(element112);
+    mouseDrag(element112);
+    areaCheck(element112);
+    openSetting1(element112, "リンク");
+    settingStyle(element112, "リンク");
 
+    var element122 = document.createElement('input');
+    element122.type = "text";
+    element122.name = "link";
+    element122.id = "tmp82";
+    element122.style.position = "absolute";
+    element122.style.backgroundColor = "transparent";
+    element122.style.top = "450px";
+    element122.style.left = "500px";
+    element122.style.fontSize = "20px";
+    element122.style.zIndex = 7;
+    element122.style.color = "blue";
+    element122.style.textDecoration = "underline";
+    element122.value = "NNNNNNNNNN";
+    area.appendChild(element122);
+    mouseDrag(element122);
+    areaCheck(element122);
+    openSetting1(element122, "リンク");
+    settingStyle(element122, "リンク");
+
+    // 追加列 3
+    var element132 = document.createElement('input');
+    element132.type = "text";
+    element132.name = "link";
+    element132.id = "tmp92";
+    element132.style.position = "absolute";
+    element132.style.backgroundColor = "transparent";
+    element132.style.top = "500px";
+    element132.style.left = "140px";
+    element132.style.fontSize = "20px";
+    element132.style.zIndex = 7;
+    element132.style.color = "blue";
+    element132.style.textDecoration = "underline";
+    element132.value = "NNNNNNNNNN";
+    area.appendChild(element132);
+    mouseDrag(element132);
+    areaCheck(element132);
+    openSetting1(element132, "リンク");
+    settingStyle(element132, "リンク");
+
+    var element142 = document.createElement('input');
+    element142.type = "text";
+    element142.name = "link";
+    element142.id = "tmp102";
+    element142.style.position = "absolute";
+    element142.style.backgroundColor = "transparent";
+    element142.style.top = "500px";
+    element142.style.left = "500px";
+    element142.style.fontSize = "20px";
+    element142.style.zIndex = 7;
+    element142.style.color = "blue";
+    element142.style.textDecoration = "underline";
+    element142.value = "NNNNNNNNNN";
+    area.appendChild(element142);
+    mouseDrag(element142);
+    areaCheck(element142);
+    openSetting1(element142, "リンク");
+    settingStyle(element142, "リンク");
+
+    // 追加列 4
+    var element152 = document.createElement('input');
+    element152.type = "text";
+    element152.name = "link";
+    element152.id = "tmp112";
+    element152.style.position = "absolute";
+    element152.style.backgroundColor = "transparent";
+    element152.style.top = "550px";
+    element152.style.left = "140px";
+    element152.style.fontSize = "20px";
+    element152.style.zIndex = 7;
+    element152.style.color = "blue";
+    element152.style.textDecoration = "underline";
+    element152.value = "NNNNNNNNNN";
+    area.appendChild(element152);
+    mouseDrag(element152);
+    areaCheck(element152);
+    openSetting1(element152, "リンク");
+    settingStyle(element152, "リンク");
+
+    var element162 = document.createElement('input');
+    element162.type = "text";
+    element162.name = "link";
+    element162.id = "tmp122";
+    element162.style.position = "absolute";
+    element162.style.backgroundColor = "transparent";
+    element162.style.top = "550px";
+    element162.style.left = "500px";
+    element162.style.fontSize = "20px";
+    element162.style.zIndex = 7;
+    element162.style.color = "blue";
+    element162.style.textDecoration = "underline";
+    element162.value = "NNNNNNNNNN";
+    area.appendChild(element162);
+    mouseDrag(element162);
+    areaCheck(element162);
+    openSetting1(element162, "リンク");
+    settingStyle(element162, "リンク");
+
+    // 追加列 5
+    var element172 = document.createElement('input');
+    element172.type = "text";
+    element172.name = "link";
+    element172.id = "tmp132";
+    element172.style.position = "absolute";
+    element172.style.backgroundColor = "transparent";
+    element172.style.top = "600px";
+    element172.style.left = "140px";
+    element172.style.fontSize = "20px";
+    element172.style.zIndex = 7;
+    element172.style.color = "blue";
+    element172.style.textDecoration = "underline";
+    element172.value = "NNNNNNNNNN";
+    area.appendChild(element172);
+    mouseDrag(element172);
+    areaCheck(element172);
+    openSetting1(element172, "リンク");
+    settingStyle(element172, "リンク");
+
+    var element182 = document.createElement('input');
+    element182.type = "text";
+    element182.name = "link";
+    element182.id = "tmp142";
+    element182.style.position = "absolute";
+    element182.style.backgroundColor = "transparent";
+    element182.style.top = "600px";
+    element182.style.left = "500px";
+    element182.style.fontSize = "20px";
+    element182.style.zIndex = 7;
+    element182.style.color = "blue";
+    element182.style.textDecoration = "underline";
+    element182.value = "NNNNNNNNNN";
+    area.appendChild(element182);
+    mouseDrag(element182);
+    areaCheck(element182);
+    openSetting1(element182, "リンク");
+    settingStyle(element182, "リンク");
+
+    // 追加列 6
+    var element192 = document.createElement('input');
+    element192.type = "text";
+    element192.name = "link";
+    element192.id = "tmp152";
+    element192.style.position = "absolute";
+    element192.style.backgroundColor = "transparent";
+    element192.style.top = "650px";
+    element192.style.left = "140px";
+    element192.style.fontSize = "20px";
+    element192.style.zIndex = 7;
+    element192.style.color = "blue";
+    element192.style.textDecoration = "underline";
+    element192.value = "NNNNNNNNNN";
+    area.appendChild(element192);
+    mouseDrag(element192);
+    areaCheck(element192);
+    openSetting1(element192, "リンク");
+    settingStyle(element192, "リンク");
+
+    var element202 = document.createElement('input');
+    element202.type = "text";
+    element202.name = "link";
+    element202.id = "tmp162";
+    element202.style.position = "absolute";
+    element202.style.backgroundColor = "transparent";
+    element202.style.top = "650px";
+    element202.style.left = "500px";
+    element202.style.fontSize = "20px";
+    element202.style.zIndex = 7;
+    element202.style.color = "blue";
+    element202.style.textDecoration = "underline";
+    element202.value = "NNNNNNNNNN";
+    area.appendChild(element202);
+    mouseDrag(element202);
+    areaCheck(element202);
+    openSetting1(element202, "リンク");
+    settingStyle(element202, "リンク");
+}
 
 
 
@@ -2197,6 +3137,8 @@ function createHTML(){
     createTextbox();
     // createRadio();
     createCommnadURL();
+    createCommnadNone();
+    createCommnadCB();
     createLink();
     // createSelectone();
     createBG();
@@ -2510,13 +3452,62 @@ function createCommnadURL(){
 };
 
 
+//command 機能なし
+function createCommnadNone(){
+    //要素配列
+    var array = document.getElementsByName('command');
+    for(var i = 0; i < array.length; i++){
+        if(array[i].hidden==false){
+            var element = array[i];
+            if(functionMap.get(element.id)=="" || functionMap.get(element.id)==undefined){
+                //変数定義
+                var rect = element.getBoundingClientRect();
+                var area = document.getElementById('editTable');
+                var areaRect = area.getBoundingClientRect();
+                //計算(width,height,left,top,fontSize)(編集エリアのwidth=1136)
+                element.style.width=rect.width/1136*100+"%";
+                element.style.height=rect.height/639*100+"%";
+                element.style.top=(rect.top-areaRect.top)/639*100+"%";
+                element.style.left=(rect.left-areaRect.left)/1136*100+"%";
+                //フォントサイズ計算
+                var fs = window.getComputedStyle(element).fontSize;
+                var fsNum = parseFloat(fs);
+                element.style.fontSize=fsNum*980/639+"px";
+                //idとstyleを取得
+                var id = element.id;
+                var style = element.style.cssText;
+                var text = element.value;
+                // U+FE0F を省略する
+                text = text.replace(/\uFE0F/g, ''); // U+FE0F を空文字に置換
+                //テンプレ
+                var templete = `<button id="${id}" style="${style}">${text}</button>
+    `;
+                resultCode += templete;
+                //計算された値を元に戻して終了
+                element.style.width = rect.width + "px";
+                element.style.height = rect.height + "px";
+                element.style.top = rect.top + "px";
+                element.style.left = rect.left + "px";
+                element.style.fontSize = fs;
+            };
+        };
+    };
+};
+
+
 
 //command 指定文字をクリップボードへコピー
 var addScript = false;
-function createCommnadURL(){
+function createCommnadCB(){
     //要素配列
     var array = document.getElementsByName('command');
-    if(array.length!=0){//一度だけ関数を追加
+    var count = 0;
+    for(let i = 0; i < array.length; i++){
+        if(functionMap.get(array[i].id)=="指定文字をクリップボードへコピー"){
+            count++;
+        };
+    };
+    if(count > 0){//一度だけ関数を追加
         resultCode += `<script>
 // クリップボードにコピーする関数
 function copyToClipboard(text) {
@@ -2555,10 +3546,7 @@ function copyToClipboard(text) {
                 // U+FE0F を省略する
                 text = text.replace(/\uFE0F/g, ''); // U+FE0F を空文字に置換
                 //テンプレ
-                var templete = `<script>
-    var text = "${CB}";
-</script>
-<button id="${id}" style="${style}" onclick="copyToClipboard(text)">${text}</button>
+                var templete = `<button id="${id}" style="${style}" onclick="copyToClipboard('${CB}')">${text}</button>
 `;
                 resultCode += templete;
                 //計算された値を元に戻して終了
