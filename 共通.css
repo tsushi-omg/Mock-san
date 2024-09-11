@@ -52,3 +52,10 @@ input, textarea, div {
 /* #openExp:hover label {
     color: red; /* ホバー時にラベルの文字色を赤に変更 */
 /* } */ 
+
+
+/* 選択判定用 */
+.choiceOn{
+    /* border-style: dashed; */
+}
+

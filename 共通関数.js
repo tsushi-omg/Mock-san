@@ -136,6 +136,7 @@ document.addEventListener('mousemove', function(event) {
 
 function mouseDrag(element) {
     element.onpointermove = function(event) {
+        if(moveAble % 2 == 0){
         // 要素のサイズを取得
         const elementRect = this.getBoundingClientRect();
         // 右から20pxの範囲内にマウスがあるか確認
@@ -149,6 +150,7 @@ function mouseDrag(element) {
             this.style.position = 'absolute';
             this.draggable      = false;
             this.setPointerCapture(event.pointerId);
+        }
         }
     };
 }
@@ -386,6 +388,9 @@ function settingStyle(element,bunrui){
             BGColor.addEventListener('input', function() {
                 element.style.backgroundColor=BGColor.value;
                 BGTransCheck.checked=false;
+                //元の背景色を保存
+                var currentBG = window.getComputedStyle(element).backgroundColor;
+                BGMap.set(element.id,currentBG);
             });
             //背景色　透明　check!---ok
             BGTransCheck.addEventListener('input', function() {
@@ -625,6 +630,7 @@ function settingStyleSelect(element,bunrui){
 
 function openSetting2(element,bunrui){  //for radio
     element.addEventListener('click', function() {
+        if(startChoice==false){
         //rangeを削除
         var elements = document.getElementsByName('range');
         if (elements.length > 0) {
@@ -830,6 +836,7 @@ function openSetting2(element,bunrui){  //for radio
                 backgroundForm.hidden=true;
                 addRadio(element,countRadioNumber.value,element.name);//構成数に合わせたradioを作成
             }
+        }
         };
     });
 };
@@ -1018,7 +1025,14 @@ function addRadio(element,count,name){//要素，構成数の入力値，グル�
 //ok
 
 function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
-    element.addEventListener('click', function() {
+    element.addEventListener('click', function(event) {
+        if(event.ctrlKey){
+            choiceMulti(element,bunrui);
+        }else if(startChoice==false){
+        //元の背景色を保存
+        var currentBG = window.getComputedStyle(element).backgroundColor;
+        BGMap.set(element.id,currentBG);
+
         //rangeを削除
         var elements = document.getElementsByName('range');
         if (elements.length > 0) {
@@ -1137,6 +1151,10 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
             }else{
                 functionForm.hidden = true;
             }
+        //リンクのときフォーカス
+        if(bunrui=="リンク"){
+            URLBox.focus();
+        }
         //分類を表示
         bunruiLabel.textContent=bunrui;
         //idを表示
@@ -1252,6 +1270,7 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 areaCheck(textarea);
                 openSetting1(textarea,"ラベル");
                 settingStyle(textarea,"ラベル");//スタイル設定画面
+                randomID(textarea);
             }
             //テキストボックス複製
             if(element.name=="textbox"){
@@ -1282,6 +1301,7 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 areaCheck(textarea);
                 openSetting1(textarea,"テキストボックス");
                 settingStyle(textarea,"テキストボックス");//スタイル設定画面
+                randomID(textarea);
             }
             //コマンドボタン複製
             if(element.name=="command"){
@@ -1312,6 +1332,7 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 areaCheck(textarea);
                 openSetting1(textarea,"コマンドボタン");
                 settingStyle(textarea,"コマンドボタン");//スタイル設定画面
+                randomID(textarea);
             }
             //リンク複製
             if(element.name=="link"){
@@ -1342,7 +1363,9 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 areaCheck(textarea);
                 openSetting1(textarea,"リンク");
                 settingStyle(textarea,"リンク");//スタイル設定画面
+                randomID(textarea);
             }
+        }
         };
     });
 };
@@ -1640,6 +1663,7 @@ function settingBackground(element) {
 //セレクトワンopensetting
 function openSettingSelect(element,bunrui){
     element.addEventListener('click', function() {
+    if(startChoice==false){
     //変数定義
         //セレクトform
         var selectSettingForm = document.getElementById('selectSettingForm');
@@ -1685,6 +1709,7 @@ function openSettingSelect(element,bunrui){
             selectSettingForm.hidden = true;
             sampleForm.hidden = true;
         };
+    }
     };
     });
 };
@@ -1692,11 +1717,105 @@ function openSettingSelect(element,bunrui){
 
 
 
+//要素を引数に取り，ランダムなidを設定する関数
+function randomID(element){
+    var newID =(Math.random() * Math.random()).toString().replace("0.","").substring(0,5);
+    element.id=newID;
+    if(document.getElementById(newID)){
+        randomID(element);
+    };
+};
 
 
 
+//ctrl+クリックで要素を複数選択
+var countChoice = 0;//選択数
+var startChoice = false;//複数選択の開始。これがtrueのときは本来のクリックイベントが起こらないよう制御
+let BGMap = new Map();
+function choiceMulti(element,bunrui){
 
-
+    //変数定義
+    var settingForm  = document.getElementById('settingForm');
+    var groupForm  = document.getElementById('groupForm');
+    var URLForm  = document.getElementById('URLForm');
+    var sampleForm  = document.getElementById('sampleForm');
+    var backgroundForm  = document.getElementById('backgroundForm');
+    var selectSettingForm  = document.getElementById('selectSettingForm');
+    var sampleFormSelect  = document.getElementById('sampleFormSelect');
+    var optionForm  = document.getElementById('optionForm');
+    var functionForm  = document.getElementById('functionForm');
+    var multiChoiceForm  = document.getElementById('multiChoiceForm');
+    var multiChoiceTextForm  = document.getElementById('multiChoiceTextForm');
+    var unChoiceButton  = document.getElementById('unChoiceButton');
+    // var choiceCopyButton  = document.getElementById('choiceCopyButton');
+    var choiceDeleteButton  = document.getElementById('choiceDeleteButton');
+    var newTextSubmitButton = document.getElementById('newTextSubmitButton');
+    var newTextBox = document.getElementById('newTextBox');
+    // 非表示画面
+    settingForm.hidden=true;
+    groupForm.hidden=true;
+    URLForm.hidden=true;
+    sampleForm.hidden=true;
+    backgroundForm.hidden=true;
+    selectSettingForm.hidden=true;
+    sampleFormSelect.hidden=true;
+    optionForm.hidden=true;
+    functionForm.hidden=true;
+    newTextBox.value="";
+    // 画面展開
+    multiChoiceForm.hidden=false;
+    multiChoiceTextForm.hidden=false;
+    //選択モード開始
+    startChoice=true;
+    // 条件分岐
+    if(element.classList.contains('choiceOn')){//選択解除
+        element.classList.remove('choiceOn');
+        element.style.backgroundColor=BGMap.get(element.id) || "transparent";
+        countChoice--;
+        if(countChoice==0){
+            multiChoiceForm.hidden=true;
+            multiChoiceTextForm.hidden=true;
+            startChoice=false;
+        }
+    }else{
+        element.classList.add('choiceOn');//選択する
+        element.style.backgroundColor="gray";
+        countChoice++;
+    };
+    //選択解除イベント
+    unChoiceButton.onclick=function(){
+        let array = document.getElementsByClassName('choiceOn');
+        for(var i = array.length-1; i >= 0; i--){
+            array[i].style.backgroundColor=BGMap.get(array[i].id) || "transparent";
+            array[i].classList.remove('choiceOn');
+        }
+        multiChoiceForm.hidden=true;
+        multiChoiceTextForm.hidden=true;
+        startChoice=false;
+    };
+    //削除ボタンイベント
+    choiceDeleteButton.onclick=function(){
+        let array = document.getElementsByClassName('choiceOn');
+        for(var i = array.length-1; i >= 0; i--){
+            array[i].remove();
+        }
+        multiChoiceForm.hidden=true;
+        multiChoiceTextForm.hidden=true;
+        startChoice=false;
+    };
+    //適用ボタンイベント
+    newTextSubmitButton.onclick=function(){
+        let array = document.getElementsByClassName('choiceOn');
+        for(var i = array.length-1; i >= 0; i--){
+            array[i].value=newTextBox.value;
+            array[i].style.backgroundColor=BGMap.get(array[i].id) || "transparent";
+            array[i].classList.remove('choiceOn');
+        }
+        multiChoiceForm.hidden=true;
+        multiChoiceTextForm.hidden=true;
+        startChoice=false;
+    };
+};
 
 
 
@@ -1714,8 +1833,16 @@ function onOffGrid(){
         document.getElementById('editTableGrid').hidden=true;
     }else{
         document.getElementById('editTableGrid').hidden=false;   
-    }
-}
+    };
+};
+
+
+//移動制限
+var moveAble = 0;
+function noMovePosition(){
+    moveAble++;
+};
+
 
 
 
@@ -2741,6 +2868,7 @@ function createTMPLink(){
     element12.style.left="90px";
     element12.style.fontSize="30px";
     element12.style.zIndex=7;
+    element12.style.fontWeight="bold";
     element12.value="リンク集📋";
     area.appendChild(element12);
     mouseDrag(element12);
