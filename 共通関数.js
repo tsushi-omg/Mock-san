@@ -629,8 +629,10 @@ function settingStyleSelect(element,bunrui){
 //ok
 
 function openSetting2(element,bunrui){  //for radio
-    element.addEventListener('click', function() {
-        if(startChoice==false){
+    element.addEventListener('click', function(event) {
+        if(event.ctrlKey){
+            choiceMulti(element,bunrui);
+        }else if(startChoice==false){
         //rangeを削除
         var elements = document.getElementsByName('range');
         if (elements.length > 0) {
@@ -1303,6 +1305,37 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 settingStyle(textarea,"テキストボックス");//スタイル設定画面
                 randomID(textarea);
             }
+            //テキストエリア複製
+            if(element.name=="textarea"){
+                const editArea = document.getElementById("editArea");
+                const textarea = document.createElement("input");
+                textarea.type="text";
+                textarea.name = "textarea";
+                textarea.style.position="absolute";
+                textarea.style.resize="none";
+                textarea.style.zIndex=7;
+                textarea.value=element.value;
+                textarea.style.backgroundColor="transparent";
+                textarea.style.top="16%";
+                textarea.style.left="5%";
+                textarea.style.width=elementRectNew.width+"px";
+                textarea.style.height=elementRectNew.height+"px";
+                textarea.autocomplete="off";
+                textarea.value=element.value;//追加
+                textarea.style.border=element.style.border;//追加
+                textarea.style.borderColor=element.style.borderColor;//追加
+                textarea.style.fontWeight=element.style.fontWeight;//追加
+                textarea.style.fontSize=window.getComputedStyle(element).fontSize;//追加
+                textarea.style.color=window.getComputedStyle(element).color;//追加
+                textarea.style.backgroundColor=window.getComputedStyle(element).backgroundColor;//追加
+                textarea.style.textDecoration=window.getComputedStyle(element).textDecoration;//追加
+                editArea.appendChild(textarea);
+                mouseDrag(textarea);
+                areaCheck(textarea);
+                openSetting1(textarea,"テキストエリア");
+                settingStyle(textarea,"テキストエリア");//スタイル設定画面
+                randomID(textarea);
+            }
             //コマンドボタン複製
             if(element.name=="command"){
                 const editArea = document.getElementById("editArea");
@@ -1333,6 +1366,38 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 openSetting1(textarea,"コマンドボタン");
                 settingStyle(textarea,"コマンドボタン");//スタイル設定画面
                 randomID(textarea);
+            }
+            //コピーボタン複製
+            if(element.name=="copy"){
+                const editArea = document.getElementById("editArea");
+                const textarea = document.createElement("input");
+                textarea.type="input";
+                textarea.name = "copy";
+                textarea.style.position="absolute";
+                textarea.style.resize="none";
+                textarea.style.zIndex=7;
+                textarea.value=element.value;
+                textarea.style.backgroundColor="transparent";
+                textarea.style.top="16%";
+                textarea.style.left="5%";
+                textarea.style.width=elementRectNew.width+"px";
+                textarea.style.height=elementRectNew.height+"px";
+                textarea.autocomplete="off";
+                textarea.value=element.value;//追加
+                textarea.style.border=element.style.border;//追加
+                textarea.style.borderColor=element.style.borderColor;//追加
+                textarea.style.fontWeight=element.style.fontWeight;//追加
+                textarea.style.fontSize=window.getComputedStyle(element).fontSize;//追加
+                textarea.style.color=window.getComputedStyle(element).color;//追加
+                textarea.style.backgroundColor=window.getComputedStyle(element).backgroundColor;//追加
+                textarea.style.textDecoration=window.getComputedStyle(element).textDecoration;//追加
+                editArea.appendChild(textarea);
+                mouseDrag(textarea);
+                areaCheck(textarea);
+                openSetting1(textarea,"文字列コピーボタン");
+                settingStyle(textarea,"文字列コピーボタン");//スタイル設定画面
+                randomID(textarea);
+                openSettingParts(textarea);
             }
             //リンク複製
             if(element.name=="link"){
@@ -2081,6 +2146,47 @@ function createElementTextbox(){
 
 
 
+//テキストエリア要素作成 ok!
+
+var countTextarea = 0;
+function createElementTextarea(){
+    //【共通】メニューを閉じる
+    var menu = document.getElementById('selectMenuObj');
+    menu.hidden=true;
+    menuOpen=false;
+    //要素作成
+    if(countTextarea<30){
+        const editArea = document.getElementById("editArea");
+        const textbox = document.createElement("input");
+        countTextarea ++;
+        textbox.style="text";
+        textbox.id = "textarea"+countTextarea;
+        textbox.name = "textarea";
+        editArea.appendChild(textbox); 
+        //マウスの位置に移動
+        textbox.style.left=mouseX +"px";
+        textbox.style.top=mouseY+"px";
+        textbox.style.position="absolute";
+        textbox.style.resize="none";
+        // textbox.style.color="gray";
+        textbox.style.zIndex=7;
+        textbox.style.backgroundColor="transparent";
+        textbox.autocomplete="off";
+        if(countTextarea==30){
+            var manuLabel = document.getElementById('manuTextareabox');
+            manuLabel.disabled=true;
+        };
+
+        //マウスドラッグ関数を適用
+        mouseDrag(textbox);
+        areaCheck(textbox);
+        openSetting1(textbox,"テキストエリア");
+        settingStyle(textbox,"テキストエリア");//スタイル設定画面
+        // autoFontSize(textbox);
+    };
+};
+
+
 
 
 
@@ -2213,6 +2319,9 @@ function createElementLink(){
 
 
 
+
+
+
 //背景要素作成
 
 var countBG = 0;
@@ -2290,6 +2399,140 @@ function createElementSelectone(){
         
     };
 };
+
+
+//部品クリック
+function createElementParts(){
+    //【共通】メニューを閉じる
+    var menu = document.getElementById('selectMenuObj');
+    menu.hidden=true;
+    menuOpen=false;
+    //変数定義
+    var form = document.getElementById('selectPartsForm');
+    var close = document.getElementById('closePartsButton');
+    var select = document.getElementById('partsSelect');
+    var submit = document.getElementById('submitPartsButton');
+    //初期表示
+    form.hidden = false;
+    select.value="";
+    //×ボタン
+    close.onclick=function(){
+        form.hidden = true;
+    };
+    // 追加ボタン
+    submit.onclick=function(){
+        if(select.value=="文字列コピーボタン"){
+            form.hidden = true;
+            partsCopy();
+        }else if(select.value=="タイマー"){
+            form.hidden = true;
+            document.getElementById('opTimer').disabled=true;
+            partsTimer();
+        }
+    };
+};
+
+
+
+// コピーボタンパーツ作成
+function partsCopy() {
+    var area = document.getElementById('editArea'); // 'editArea'が存在するか確認
+    
+    // ボタン要素の作成
+    var button = document.createElement('input');
+    button.type = "text";
+    button.value = "コピー";
+    button.name = "copy";
+    button.style.position = "absolute";
+    button.style.left = mouseX;
+    button.style.top = mouseY;
+    button.style.width = "63px";
+    button.style.border = "outset";
+    button.style.backgroundColor = "transparent";
+    button.style.zIndex = "7"; // zIndexを文字列として設定
+    area.appendChild(button); // ボタンをエリアに追加
+    button.style.left=mouseX +"px";
+    button.style.top=mouseY+"px";
+    mouseDrag(button);
+    areaCheck(button);
+    openSettingParts(button);
+    openSetting1(button,"文字列コピーボタン");
+    settingStyle(button,"文字列コピーボタン");
+    randomID(button);
+
+}
+
+
+
+//コピーボタン部品クリックイベント
+let copiedMap = new Map();
+function openSettingParts(element){
+    element.addEventListener('click',function(event){
+        if(event.ctrlKey){
+            choiceMulti(element,"文字列コピーボタン");
+        }else if(startChoice==false){
+            //変数定義
+            var form = document.getElementById('settingCopyButtonForm');
+            var close = document.getElementById('closeSettingCopyButton');
+            var box = document.getElementById('copiedBox');
+            var submit = document.getElementById('submitSettingCopyButton');
+            //初期表示
+            form.hidden=false;
+            box.value=copiedMap.get(element.id) || "";
+            mouseDrag(form);
+            //×クリック
+            close.onclick=function(){
+                form.hidden=true;
+            };
+            //保存クリック
+            submit.onclick=function(){
+                if(box.value==""){
+                    alert("コピー元要素のIDを入力してください。");
+                }else if(!document.getElementById(box.value)){
+                    alert("入力されたIDは存在しません。");
+                }else{
+                    copiedMap.set(element.id,box.value);
+                    form.hidden=true;
+                };
+            };
+        };
+    });
+};
+
+
+//タイマー要素作成 
+function partsTimer(){
+    var menu = document.getElementById('selectMenuObj');
+    menu.hidden=true;
+    menuOpen=false;
+    //要素作成
+        const editArea = document.getElementById("editArea");
+        const textbox = document.createElement("input");
+        countTextbox ++;
+        textbox.type="text"
+        textbox.readOnly=true;
+        textbox.value="00：00：00⌛";
+        textbox.id = "timer";
+        textbox.name = "timer";
+        editArea.appendChild(textbox); 
+        //マウスの位置に移動
+        textbox.style.left=mouseX +"px";
+        textbox.style.top=mouseY+"px";
+        textbox.style.position="absolute";
+        textbox.style.resize="none";
+        // textbox.style.color="gray";
+        textbox.style.zIndex=7;
+        textbox.style.backgroundColor="transparent";
+        textbox.autocomplete="off";
+
+        //マウスドラッグ関数を適用
+        mouseDrag(textbox);
+        areaCheck(textbox);
+        openSetting1(textbox,"タイマー");
+        settingStyle(textbox,"タイマー");//スタイル設定画面
+        // autoFontSize(textbox);
+};
+
 
 
 //テンプレートを選択
@@ -5175,7 +5418,10 @@ function createHTML(){
     addStartCode();
     createLabel();
     createTextbox();
+    createTextarea();
     // createRadio();
+    createCopyButton();
+    createTimer();
     createCommnadURL();
     createCommnadNone();
     createCommnadCB();
@@ -5407,6 +5653,99 @@ function createTextbox(){
 };
 
 
+
+
+//textarea
+function createTextarea(){
+    //要素配列
+    var array = document.getElementsByName('textarea');
+    for(var i = 0; i < array.length; i++){
+        if(array[i].hidden==false){
+            var element = array[i];
+            //変数定義
+            var rect = element.getBoundingClientRect();
+            var area = document.getElementById('editTable');
+            var areaRect = area.getBoundingClientRect();
+            //計算(width,height,left,top,fontSize)(編集エリアのwidth=1136)
+            element.style.width=rect.width/1136*100+"%";
+            element.style.height=rect.height/639*100+"%";
+            element.style.top=(rect.top-areaRect.top)/639*100+"%";
+            element.style.left=(rect.left-areaRect.left)/1136*100+"%";
+            //フォントサイズ計算
+            var fs = window.getComputedStyle(element).fontSize;
+            var fsNum = parseFloat(fs);
+            element.style.fontSize=fsNum*980/639+"px";
+            //idとstyleを取得
+            var id = element.id;
+            var style = element.style.cssText;
+            var text = element.value;
+            // U+FE0F を省略する
+            text = text.replace(/\uFE0F/g, ''); // U+FE0F を空文字に置換
+            //テンプレ
+            var templete = `<textarea id="${id}" style="${style}" placeholder="${text}"></textarea>
+`;
+            resultCode += templete;
+            //計算された値を元に戻して終了
+            element.style.width = rect.width + "px";
+            element.style.height = rect.height + "px";
+            element.style.top = rect.top + "px";
+            element.style.left = rect.left + "px";
+            element.style.fontSize = fs;
+        };
+    };
+};
+
+
+
+//radio---未完成
+function createRadio(){
+    //1グループ目
+    //要素配列
+    var array = document.getElementsByName('radio1');
+    for(var i = 0; i < array.length; i++){
+        if(array[i].hidden==false){
+            var element = array[i];
+            //変数定義
+            var rect = element.getBoundingClientRect();
+            var area = document.getElementById('editTable');
+            var areaRect = area.getBoundingClientRect();
+            //計算(width,height,left,top,fontSize)(編集エリアのwidth=1136)
+            element.style.width=rect.width/1136*100+"%";
+            element.style.height=rect.height/639*100+"%";
+            element.style.top=(rect.top-areaRect.top)/639*100+"%";
+            element.style.left=(rect.left-areaRect.left)/1136*100+"%";
+
+            var radioLeft = (rect.left-areaRect.left)/1136*100-2+"%";
+            //フォントサイズ計算
+            var fs = window.getComputedStyle(element).fontSize;
+            var fsNum = parseFloat(fs);
+            element.style.fontSize=fsNum*980/639+"px";
+            //idとstyleを取得
+            var id = element.id;
+            var style = element.style.cssText;
+            var text = element.value;
+            // U+FE0F を省略する
+            text = text.replace(/\uFE0F/g, ''); // U+FE0F を空文字に置換
+            //テンプレ
+            var templete = `<input type="radio" id="${id}" style="position : absolute; left : ${radioLeft} ; top : ${element.style.top} ; " ><label style="${style}">${text}</label>
+`;
+            resultCode += templete;
+            //計算された値を元に戻して終了
+            element.style.width = rect.width + "px";
+            element.style.height = rect.height + "px";
+            element.style.top = rect.top + "px";
+            element.style.left = rect.left + "px";
+            element.style.fontSize = fs;
+        };
+    };
+}
+
+
+
+
+
+
+
 //link
 function createLink(){
     //要素配列
@@ -5448,6 +5787,109 @@ function createLink(){
     };
 };
 
+
+//copy button--ok
+function createCopyButton(){
+    //要素配列
+    var array = document.getElementsByName('copy');
+    if(array.length!=0){
+        resultCode+=`<script>
+// クリップボードにコピーする関数
+function clipCopy(text) {
+    var textnew = document.getElementById(text).value;
+    navigator.clipboard.writeText(textnew).then(() => {
+    }).catch(err => {
+    alert('コピーに失敗しました: ' + err);
+    });
+};
+</script>
+`;
+    }
+    for(var i = 0; i < array.length; i++){
+        if(array[i].hidden==false){
+            var element = array[i];
+                //変数定義
+                var rect = element.getBoundingClientRect();
+                var area = document.getElementById('editTable');
+                var areaRect = area.getBoundingClientRect();
+                //計算(width,height,left,top,fontSize)(編集エリアのwidth=1136)
+                element.style.width=rect.width/1136*100+"%";
+                element.style.height=rect.height/639*100+"%";
+                element.style.top=(rect.top-areaRect.top)/639*100+"%";
+                element.style.left=(rect.left-areaRect.left)/1136*100+"%";
+                //フォントサイズ計算
+                var fs = window.getComputedStyle(element).fontSize;
+                var fsNum = parseFloat(fs);
+                element.style.fontSize=fsNum*980/639+"px";
+                //idとstyleを取得
+                var id = element.id;
+                var style = element.style.cssText;
+                var text = element.value;
+                // U+FE0F を省略する
+                text = text.replace(/\uFE0F/g, ''); // U+FE0F を空文字に置換
+                //テンプレ
+                var templete = `<button id="${id}" style="${style}" onclick="clipCopy('${copiedMap.get(element.id)}')">${text}</button>
+`;
+                resultCode += templete;
+                //計算された値を元に戻して終了
+                element.style.width = rect.width + "px";
+                element.style.height = rect.height + "px";
+                element.style.top = rect.top + "px";
+                element.style.left = rect.left + "px";
+                element.style.fontSize = fs;
+            };
+    };
+};
+
+
+
+//タイマー
+function createTimer(){
+    if(document.getElementsByName('timer').length!=0){
+        let array = document.getElementsByName('timer');
+        var style = array[0].style.cssText;
+        resultCode+=`<div style="${style}">
+    <label id="hour">0</label><label id="hourL">時間</label>
+    <label id="minute">0</label><label id="minuteL">分</label>
+    <label id="second">0</label><label id="secondL">秒⌛</label>
+</div>
+<script>
+    var hour = document.getElementById('hour');
+    var hourL = document.getElementById('hourL');
+    var minute = document.getElementById('minute');
+    var minuteL = document.getElementById('minuteL');
+    var second = document.getElementById('second');
+    var secondL = document.getElementById('secondL');
+    var countS = 0;
+    var countM = 0;
+    var countH = 0;
+
+    setInterval(() => {
+        countS++;
+        if(countS==60){
+            countS=0;
+            second.textContent=0;
+            countM++;
+            if(countM==60){
+                minute.textContent=0;
+                countM=0;
+                countH++;
+                hour.textContent=countH;
+            }else{
+                minute.textContent=countM;
+            }
+        }else{
+            second.textContent=countS;
+        }
+    }, 1000);
+</script>`
+    }
+}
+
+
+
+
+
 //command リンクを埋め込んで遷移
 function createCommnadURL(){
     //要素配列
@@ -5478,7 +5920,7 @@ function createCommnadURL(){
                 text = text.replace(/\uFE0F/g, ''); // U+FE0F を空文字に置換
                 //テンプレ
                 var templete = `<button id="${id}" style="${style}" onclick="window.open('${url}','_blank','noopener,noreferrer')">${text}</button>
-    `;
+`;
                 resultCode += templete;
                 //計算された値を元に戻して終了
                 element.style.width = rect.width + "px";
@@ -5521,7 +5963,7 @@ function createCommnadNone(){
                 text = text.replace(/\uFE0F/g, ''); // U+FE0F を空文字に置換
                 //テンプレ
                 var templete = `<button id="${id}" style="${style}">${text}</button>
-    `;
+`;
                 resultCode += templete;
                 //計算された値を元に戻して終了
                 element.style.width = rect.width + "px";

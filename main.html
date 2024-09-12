@@ -388,16 +388,17 @@ setInterval(() => {
 
 
 <!-- セレクトワンメニュー -->
-<div id="selectMenuObj" style="display: grid; grid-template-rows: auto auto auto; position: absolute; background-color: rgb(228, 228, 228); z-index: 10; cursor: pointer;" hidden>
-<button id="manuLabel" onclick="createElementLabel()">ラベル</button>
-<button id="manuTextbox" onclick="createElementTextbox()">テキストボックス</button>
-<button id="manuCommand" onclick="createElementCommand()">コマンドボタン</button>
-<button id="manuLink" onclick="createElementLink()">リンク</button>
-<button id="manuRadio" onclick="createElementRadio()" disabled>ラジオボタン</button>
-<button id="manuSelectone" onclick="createElementSelectone()" disabled>セレクトワンメニュー</button>
-<!-- <button id="manuTable">テーブル</button> -->
-<button id="manuBG" onclick="createElementBG()">背景要素</button>
-<button id="manuTemplate" onclick="createElementTemplate()">テンプレート</button>
+<div id="selectMenuObj" style="display: grid; grid-template-rows: auto auto auto; position: absolute; background-color: black; z-index: 10; cursor: pointer;" hidden>
+<button id="manuLabel" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);" onclick="createElementLabel()">ラベル</button>
+<button id="manuTextbox" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);"  onclick="createElementTextbox()">テキストボックス</button>
+<button id="manuTextareabox" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);"  onclick="createElementTextarea()">テキストエリア</button>
+<button id="manuCommand" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);"  onclick="createElementCommand()">コマンドボタン</button>
+<button id="manuLink" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);"  onclick="createElementLink()">リンク</button>
+<!-- <button id="manuRadio"  style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);" onclick="createElementRadio()" >ラジオボタン</button> -->
+<!-- <button id="manuSelectone" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);"  onclick="createElementSelectone()" disabled>セレクトワンメニュー</button> -->
+<button id="manuBG" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);"  onclick="createElementBG()">背景要素</button>
+<button id="manuParts"  style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);" onclick="createElementParts()">部品🔧</button>
+<button id="manuTemplate" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);"  onclick="createElementTemplate()">テンプレート📚</button>
 
 </div>
 
@@ -709,6 +710,40 @@ setInterval(() => {
     <div><button id="unChoiceButton" style="margin-left: 300px; border-style: dashed; border-color: rgb(108, 180, 214); background-color: transparent; color:rgb(229, 229, 229);">選択解除</button><button id="choiceDeleteButton" style="margin-left: 10px; background-color: rgb(190, 40, 40); color:rgb(229, 229, 229);">完全削除</button><p></div>
 
 </div>
+
+<!-- 部品選択画面 -->
+<div id="selectPartsForm" style="position: absolute; top:26.5%; left: 40%; background-color: rgb(21, 21, 21); width:25%; height: 22%; z-index: 21; border: solid; border-color: gray;" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >部品</label>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;" ></label><p></div>
+    <div style="position: absolute; top:1%; left:93.5%; cursor: pointer;" id="closePartsButton">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+    <p></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">部品を使用　：　</label>
+    <select id="partsSelect" style="margin-left: 10px; background-color: rgb(122, 122, 122); width: 50%;">
+        <option></option>
+        <option id="opTimer">タイマー</option>
+        <!-- <option>置換ボタン</option> -->
+        <!-- <option>入力クリアボタン</option> -->
+        <option>文字列コピーボタン</option>
+        <!-- <option>Google検索窓</option> -->
+    </select><p></div>
+    <button id="submitPartsButton" style="margin-left: 410px; margin-top: 20px; background-color: rgb(154, 64, 158); color:rgb(229, 229, 229);">追加</button>
+</div>
+
+
+
+<!-- コピーボタン設定 -->
+<div id="settingCopyButtonForm" style="position: absolute; top:26.5%; left: 40%; background-color: rgb(21, 21, 21); width:25%; height: 22%; z-index: 21; border: solid; border-color: gray;" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >【部品】コピーボタン</label>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;" ></label><p></div>
+    <div style="position: absolute; top:1%; left:93.5%; cursor: pointer;" id="closeSettingCopyButton">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="red"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+    <p></div>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">コピー元を参照　：　</label><input type="text" style="margin-left: 10px;" id="copiedBox" placeholder="対象のIDを入力" autocomplete="off"></div><p>
+    <div><button id="submitSettingCopyButton" style="position: absolute; top:75%; left: 85%;  background-color: rgb(73, 69, 184); color:rgb(229, 229, 229);">保存</button></div>
+</div>
+
+
 
 
 
