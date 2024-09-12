@@ -5847,7 +5847,21 @@ function clipCopy(text) {
 function createTimer(){
     if(document.getElementsByName('timer').length!=0){
         let array = document.getElementsByName('timer');
-        var style = array[0].style.cssText;
+        var element = array[0];
+        //変数定義
+        var rect = element.getBoundingClientRect();
+        var area = document.getElementById('editTable');
+        var areaRect = area.getBoundingClientRect();
+        //計算(width,height,left,top,fontSize)(編集エリアのwidth=1136)
+        element.style.width=rect.width/1136*100+"%";
+        element.style.height=rect.height/639*100+"%";
+        element.style.top=(rect.top-areaRect.top)/639*100+"%";
+        element.style.left=(rect.left-areaRect.left)/1136*100+"%";
+        //フォントサイズ計算
+        var fs = window.getComputedStyle(element).fontSize;
+        var fsNum = parseFloat(fs);
+        element.style.fontSize=fsNum*980/639+"px";
+        var style = element.style.cssText;
         resultCode+=`<div style="${style}">
     <label id="hour">0</label><label id="hourL">時間</label>
     <label id="minute">0</label><label id="minuteL">分</label>
@@ -5882,7 +5896,14 @@ function createTimer(){
             second.textContent=countS;
         }
     }, 1000);
-</script>`
+</script>
+`;
+        //計算された値を元に戻して終了
+        element.style.width = rect.width + "px";
+        element.style.height = rect.height + "px";
+        element.style.top = rect.top + "px";
+        element.style.left = rect.left + "px";
+        element.style.fontSize = fs;
     }
 }
 
