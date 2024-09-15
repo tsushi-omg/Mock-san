@@ -730,6 +730,7 @@ function openSetting2(element,bunrui){  //for radio
         var groupNameBox = document.getElementById('groupNameBox');
         var URLForm = document.getElementById('URLForm');
         var functionForm = document.getElementById('functionForm');
+        var googleForm = document.getElementById('googleForm');
         //セレクトワン用オプション設定エリア
         var optionForm = document.getElementById('optionForm');
         //セレクトワンメニュー用スタイル設定エリア
@@ -746,6 +747,7 @@ function openSetting2(element,bunrui){  //for radio
             URLForm.hidden=true;
             functionForm.hidden=true;
             deleteButton.style.marginLeft="350px";
+            googleForm.hidden=true;
         //分類を表示
         bunruiLabel.textContent=bunrui;
         //idを表示
@@ -807,6 +809,7 @@ function openSetting2(element,bunrui){  //for radio
             sampleForm.hidden=true;
             groupForm.hidden=true;
             backgroundForm.hidden=true;
+            googleForm.hidden=true;
             deleteKensuu++;
             document.getElementById('gabageRed').hidden=false;
             document.getElementById('deleteKensuu').hidden=false;
@@ -1115,7 +1118,6 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
         range4.style.top="193px";
         editArea.appendChild(range4); 
         var fontSizeRange = document.getElementsByName('range4')[0];
-
         //要素取得
         var elementRect = element.getBoundingClientRect();
         var elementTransform = window.getComputedStyle(element).transform;
@@ -1131,6 +1133,7 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
         var URLForm = document.getElementById('URLForm');
         var URLBox = document.getElementById('URLBox');
         var functionForm = document.getElementById('functionForm');
+        var googleForm = document.getElementById('googleForm');
         //セレクトワン用オプション設定エリア
         var optionForm = document.getElementById('optionForm');
         //セレクトワンメニュー用スタイル設定エリア
@@ -1143,6 +1146,7 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
             selectSettingForm.hidden=true;
             optionForm.hidden=true;
             sampleFormSelect.hidden=true;
+            googleForm.hidden=true;
             if(bunrui=="リンク"){
                 URLForm.hidden=false;
             }else{
@@ -1152,6 +1156,10 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
                 openFunction(element);
             }else{
                 functionForm.hidden = true;
+            }
+            //Google検索用
+            if(bunrui=="Google検索ボタン"){
+                opensettingGoogle(element);
             }
         // //リンクのときフォーカス
         // if(bunrui=="リンク"){
@@ -1214,6 +1222,7 @@ function openSetting1(element,bunrui){  //for label,textbox,comd,link  ok!
             groupForm.hidden=true;
             backgroundForm.hidden=true;
             functionForm.hidden=true;
+            googleForm.hidden=true;
             deleteKensuu++;
             document.getElementById('gabageRed').hidden=false;
             document.getElementById('deleteKensuu').hidden=false;
@@ -1736,12 +1745,14 @@ function openSettingSelect(element,bunrui){
         var settingForm = document.getElementById('settingForm');
         var URLForm = document.getElementById('URLForm');
         var functionForm = document.getElementById('functionForm');
+        var googleForm = document.getElementById('googleForm');
     //form表示
     selectSettingForm.hidden=false;
     //他form非表示
     settingForm.hidden=true;
     URLForm.hidden=true;
     functionForm.hidden=true;
+    googleForm.hidden=true;
     //初期設定処理
         //分類表示
         bunruiLabelSelect.textContent=bunrui;
@@ -2415,6 +2426,12 @@ function createElementParts(){
     //初期表示
     form.hidden = false;
     select.value="";
+    if(document.getElementsByName('timer').length==0){//timerが見つからなければ非活性解除
+        document.getElementById('opTimer').disabled=false;
+    };
+    // if(document.getElementsByName('Google').length==0){
+    //     document.getElementById('googleButton').disabled=false;
+    // };
     //×ボタン
     close.onclick=function(){
         form.hidden = true;
@@ -2428,6 +2445,10 @@ function createElementParts(){
             form.hidden = true;
             document.getElementById('opTimer').disabled=true;
             partsTimer();
+        }else if(select.value=="Google検索ボタン"){
+            form.hidden = true;
+            document.getElementById('googleButton').disabled=true;
+            partsGoogle();
         }
     };
 };
@@ -2511,7 +2532,7 @@ function partsTimer(){
         countTextbox ++;
         textbox.type="text"
         textbox.readOnly=true;
-        textbox.value="00：00：00⌛";
+        textbox.value="00時間00分00秒⌛";
         textbox.id = "timer";
         textbox.name = "timer";
         editArea.appendChild(textbox); 
@@ -2532,6 +2553,67 @@ function partsTimer(){
         settingStyle(textbox,"タイマー");//スタイル設定画面
         // autoFontSize(textbox);
 };
+
+
+//Google検索ボタン作成
+function partsGoogle(){
+    var area = document.getElementById('editArea'); // 'editArea'が存在するか確認
+    
+    // ボタン要素の作成
+    var button = document.createElement('input');
+    button.type = "text";
+    button.value = "🔍";
+    button.name = "Google";
+    button.style.position = "absolute";
+    button.style.left = mouseX;
+    button.style.top = mouseY;
+    button.style.width = "63px";
+    button.style.border = "none";
+    button.autocomplete = "off";
+    button.readOnly = "true";
+    button.style.backgroundColor = "transparent";
+    button.style.zIndex = "7"; // zIndexを文字列として設定
+    area.appendChild(button); // ボタンをエリアに追加
+    button.style.left=mouseX +"px";
+    button.style.top=mouseY+"px";
+    mouseDrag(button);
+    areaCheck(button);
+    // openSettingParts(button);
+    openSetting1(button,"Google検索ボタン");
+    // settingStyle(button,"Google検索ボタン");
+    randomID(button);
+};
+
+
+//google用セッティング
+let googleMap = new Map();
+function opensettingGoogle(element){
+    //変数定義
+    var form = document.getElementById('googleForm');
+    var sampleForm = document.getElementById('sampleForm');
+    var submit = document.getElementById('submitSettingGoogleButton');
+    var settingForm = document.getElementById('settingForm');
+    var box = document.getElementById('googleBox');
+    //表示
+    form.hidden=false;
+    sampleForm.hidden=true;
+    //初期表示
+    box.value=googleMap.get(element.id) || "";
+    //保存ボタン
+    submit.onclick=function(){
+        if(box.value==""){
+            alert("対象IDを指定してください。");
+        }else{
+            googleMap.set(element.id,box.value);
+            form.hidden=true;
+            settingForm.hidden=true;
+        };      
+    };
+};
+
+
+
+// *******************************************************************************************************************
 
 
 
@@ -2596,6 +2678,8 @@ function deleteAll(){
     deleteRadio4();
     deleteSelect();
     deleteBG();
+    deleteTimer();
+    deleteCopy();
 }
 
 //ラベル削除
@@ -2675,6 +2759,21 @@ function deleteBG(){
     };
 };
 
+//タイマー削除
+function deleteTimer(){
+    var array = document.getElementsByName('timer');
+    if(array.length!=0){
+        array[0].remove();
+    };
+};
+
+//文字列コピーボタン削除
+function deleteCopy(){
+    let array = document.getElementsByName('copy');
+    for(var i = array.length - 1; i >= 0; i--){
+        array[i].remove();
+    };
+};
 
 
 
@@ -5423,6 +5522,7 @@ function createHTML(){
     createCopyButton();
     createTimer();
     createCommnadURL();
+    // createGoogle();
     createCommnadNone();
     createCommnadCB();
     createLink();
@@ -5951,6 +6051,55 @@ function createCommnadURL(){
                 element.style.fontSize = fs;
             };
         };
+    };
+};
+
+
+
+//googleボタン
+function createGoogle(){
+    //要素配列
+    var array = document.getElementsByName('Google');
+    for(var i = 0; i < array.length; i++){
+        if(array[i].hidden==false){
+            var element = array[i];
+                //変数定義
+                var rect = element.getBoundingClientRect();
+                var area = document.getElementById('editTable');
+                var areaRect = area.getBoundingClientRect();
+                var url = googleMap.get(element.id);
+                //計算(width,height,left,top,fontSize)(編集エリアのwidth=1136)
+                element.style.width=rect.width/1136*100+"%";
+                element.style.height=rect.height/639*100+"%";
+                element.style.top=(rect.top-areaRect.top)/639*100+"%";
+                element.style.left=(rect.left-areaRect.left)/1136*100+"%";
+                //フォントサイズ計算
+                var fs = window.getComputedStyle(element).fontSize;
+                var fsNum = parseFloat(fs);
+                element.style.fontSize=fsNum*980/639+"px";
+                //idとstyleを取得
+                var id = element.id;
+                var style = element.style.cssText;
+                var text = element.value;
+                // U+FE0F を省略する
+                text = text.replace(/\uFE0F/g, ''); // U+FE0F を空文字に置換
+                //テンプレ
+                var templete = `<script>
+function openGoogle(){
+    var word = document.getElementById('${url}').value;
+    window.open('https://www.google.com/search?q='+'word','_blank','noopener,noreferrer');
+};
+</script>
+<button id="${id}" style="${style}" onclick="openGoogle()">${text}</button>
+`;
+                resultCode += templete;
+                //計算された値を元に戻して終了
+                element.style.width = rect.width + "px";
+                element.style.height = rect.height + "px";
+                element.style.top = rect.top + "px";
+                element.style.left = rect.left + "px";
+                element.style.fontSize = fs;
+            };
     };
 };
 

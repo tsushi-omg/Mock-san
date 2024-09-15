@@ -398,6 +398,7 @@ setInterval(() => {
 <!-- <button id="manuSelectone" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);"  onclick="createElementSelectone()" disabled>セレクトワンメニュー</button> -->
 <button id="manuBG" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);"  onclick="createElementBG()">背景要素</button>
 <button id="manuParts"  style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);" onclick="createElementParts()">部品🔧</button>
+<!-- <button id="manuAuto"  style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);" onclick="createAuto()">自動化ツール🤖</button> -->
 <button id="manuTemplate" style="background-color: rgb(56, 56, 56); color: rgb(228, 228, 228);"  onclick="createElementTemplate()">テンプレート📚</button>
 
 </div>
@@ -725,7 +726,7 @@ setInterval(() => {
         <!-- <option>置換ボタン</option> -->
         <!-- <option>入力クリアボタン</option> -->
         <option>文字列コピーボタン</option>
-        <!-- <option>Google検索窓</option> -->
+        <!-- <option id="googleButton">Google検索ボタン</option> -->
     </select><p></div>
     <button id="submitPartsButton" style="margin-left: 410px; margin-top: 20px; background-color: rgb(154, 64, 158); color:rgb(229, 229, 229);">追加</button>
 </div>
@@ -743,7 +744,14 @@ setInterval(() => {
     <div><button id="submitSettingCopyButton" style="position: absolute; top:75%; left: 85%;  background-color: rgb(73, 69, 184); color:rgb(229, 229, 229);">保存</button></div>
 </div>
 
+<!-- Google検索ボタン設定 -->
+<div id="googleForm" style="position: absolute; top:50%; left: 70%; background-color: rgb(56, 56, 56); width:25%; height:30%" hidden>
+    <label class="under" style="color:rgb(229, 229, 229); margin-top: 10px; margin-left: 10px; font-weight: bold;" >検索設定</label><p>
+    <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">検索対象ID　：　</label><input style="width: 60%;" type="text" placeholder="*" id="googleBox"><P></div>
+        <div><label style="color:rgb(229, 229, 229); margin-left: 10px;">※指定したテキストボックス/テキストエリアへの入力値でGoogle検索を行います。</label><P></div>
+    <div><button id="submitSettingGoogleButton" style="position: absolute; top:75%; left: 85%;  background-color: rgb(40, 55, 190); color:rgb(229, 229, 229);">保存</button></div>
 
+</div>
 
 
 
