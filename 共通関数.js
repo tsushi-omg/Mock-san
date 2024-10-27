@@ -5928,7 +5928,7 @@ function clipCopy(text) {
                 // U+FE0F を省略する
                 text = text.replace(/\uFE0F/g, ''); // U+FE0F を空文字に置換
                 //テンプレ
-                var templete = `<button id="${id}" style="${style}" onclick="clipCopy(`${copiedMap.get(element.id)}`)">${text}</button>
+                var templete = `<button id="${id}" style="${style}" onclick="clipCopy('${copiedMap.get(element.id)}')">${text}</button>
 `;
                 resultCode += templete;
                 //計算された値を元に戻して終了
@@ -6198,7 +6198,7 @@ function copyToClipboard(text) {
                 // U+FE0F を省略する
                 text = text.replace(/\uFE0F/g, ''); // U+FE0F を空文字に置換
                 //テンプレ
-                var templete = `<button id="${id}" style="${style}" onclick="copyToClipboard(`${CB}`)">${text}</button>
+                var templete = `<button id="${id}" style="${style}" onclick="copyToClipboard('${CB}')">${text}</button>
 `;
                 resultCode += templete;
                 //計算された値を元に戻して終了
